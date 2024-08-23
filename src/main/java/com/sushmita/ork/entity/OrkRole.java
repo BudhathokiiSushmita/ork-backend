@@ -1,10 +1,7 @@
 package com.sushmita.ork.entity;
 
 import com.sushmita.ork.enums.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +20,7 @@ import java.util.Set;
 @Data
 public class OrkRole extends AbstractPersistable<Long> implements Serializable {
 
+   @Enumerated(EnumType.STRING)
    private Role roleName;
 
    // For dynamic navigation
