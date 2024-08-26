@@ -26,4 +26,6 @@ public class NavPermission extends AbstractPersistable<Long> implements Serializ
 
     @ManyToMany(mappedBy = "navPermissions") //this means OrkRole is the owning entity. It also ensures that only one bridge is formed.
     private Set<OrkRole> roles;
+
+    private Long view_order;
 }

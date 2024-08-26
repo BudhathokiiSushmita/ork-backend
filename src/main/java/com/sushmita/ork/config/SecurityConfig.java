@@ -26,13 +26,14 @@ import static com.sushmita.ork.enums.Role.*;
  *
  * Admin
  * - Will Add companies
- * - Will add area
+ * - Will add area, admin can add this
  *
  * Recruiter
  * - Signup based on company
  * - Login
  * - Posts vacancy based on area
  * - Forwards to HR of the company
+ * - will create HR and Director user
  *
  * HR
  * - Verifies if the job seeker is eligible (just by looking at)
