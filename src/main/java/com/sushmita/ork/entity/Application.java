@@ -1,14 +1,10 @@
 package com.sushmita.ork.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import com.sushmita.ork.base.BaseEntity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -20,7 +16,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Application extends AbstractPersistable<Long> implements Serializable {
+public class Application extends BaseEntity   {
 
     @OneToOne
     private Vacancy vacancy;
@@ -34,6 +30,5 @@ public class Application extends AbstractPersistable<Long> implements Serializab
     //these needs to be file
     private String resume;
     private String coverLetter;
-
 
 }

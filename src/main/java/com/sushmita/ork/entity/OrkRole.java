@@ -1,13 +1,11 @@
 package com.sushmita.ork.entity;
 
+import com.sushmita.ork.base.BaseEntity;
 import com.sushmita.ork.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
-import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -18,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class OrkRole extends AbstractPersistable<Long> implements Serializable {
+public class OrkRole extends BaseEntity   {
 
    @Enumerated(EnumType.STRING)
    private Role roleName;

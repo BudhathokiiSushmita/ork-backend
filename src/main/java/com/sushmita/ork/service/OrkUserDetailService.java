@@ -1,6 +1,5 @@
 package com.sushmita.ork.service;
 
-import com.sushmita.ork.entity.OrkUserDetail;
 import com.sushmita.ork.entity.User;
 import com.sushmita.ork.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +24,6 @@ public class OrkUserDetailService implements UserDetailsService {
         if(user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return new OrkUserDetail(user);
+        return user;
     }
 }
