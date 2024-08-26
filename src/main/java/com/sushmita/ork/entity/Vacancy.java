@@ -1,12 +1,10 @@
 package com.sushmita.ork.entity;
 
+import com.sushmita.ork.base.BaseEntity;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -17,7 +15,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vacancy extends AbstractPersistable<Long> implements Serializable {
+public class Vacancy extends BaseEntity   {
 
    private String title;
    private String description;

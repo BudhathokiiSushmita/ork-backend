@@ -1,13 +1,11 @@
 package com.sushmita.ork.entity;
 
+import com.sushmita.ork.base.BaseEntity;
 import com.sushmita.ork.enums.StageStatus;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -18,7 +16,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppStage extends AbstractPersistable<Long> implements Serializable {
+public class AppStage extends BaseEntity   {
 
     private StageStatus stageStatus;
     private Date createdAt;

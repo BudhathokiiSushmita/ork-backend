@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class OrkApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(OrkApplication.class, args);
+		System.out.println("initialized");
 	}
 
 }

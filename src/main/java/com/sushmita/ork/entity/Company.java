@@ -1,12 +1,10 @@
 package com.sushmita.ork.entity;
 
+import com.sushmita.ork.base.BaseEntity;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
-import java.io.Serializable;
 
 /**
  * @author Sushmita Budhathoki on 2024-08-25
@@ -16,7 +14,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Company extends AbstractPersistable<Long> implements Serializable {
+public class Company extends BaseEntity   {
 
    private String name;
    private String address;

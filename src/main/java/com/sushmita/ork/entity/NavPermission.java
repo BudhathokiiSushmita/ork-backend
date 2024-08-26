@@ -1,13 +1,11 @@
 package com.sushmita.ork.entity;
 
+import com.sushmita.ork.base.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
-import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -20,7 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class NavPermission extends AbstractPersistable<Long> implements Serializable {
+public class NavPermission extends BaseEntity   {
 
     private String name;
 
