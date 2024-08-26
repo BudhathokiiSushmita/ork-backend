@@ -1,9 +1,13 @@
 package com.sushmita.ork.config;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.ServiceConfigurationError;
+
+import static com.sushmita.ork.enums.ActionPermission.APPLICANT_WRITE;
+import static com.sushmita.ork.enums.Role.*;
 
 /**
  * @author Sushmita Budhathoki on 2024-08-21
@@ -18,6 +22,34 @@ import java.util.ServiceConfigurationError;
  *
  * MECHANISM: For the spring security, we have filter -> authentication manager
  * -> authentication providers -> UserDetailsService
+ *
+ *
+ * Admin
+ * - Will Add companies
+ * - Will add area, admin can add this
+ *
+ * Recruiter
+ * - Signup based on company
+ * - Login
+ * - Posts vacancy based on area
+ * - Forwards to HR of the company
+ * - will create HR and Director user
+ *
+ * HR
+ * - Verifies if the job seeker is eligible (just by looking at)
+ * -  Forwards to Director of the company
+ *
+ * Director
+ * - Approves and sets time for interview
+ *
+ * Applicant
+ * - Signup
+ * - Login
+ * - Sees multiple companies before login, this is PUBLIC
+ * - Can apply to the hiring post
+ * - Sees the process throughout
+ *
+ * Same login page, dashboard and navigation is based on role's nav permissions
  */
 public class SecurityConfig {
 
@@ -25,9 +57,15 @@ public class SecurityConfig {
        try {
            httpSecurity.csrf(c -> c.disable())
                    .authorizeHttpRequests(requests -> requests
-                           .requestMatchers("/users/**").permitAll()
-                           .anyRequest().authenticated());
+                           .requestMatchers(HttpMethod.GET,"/companies/**").permitAll() //PUBLIC
+                           .requestMatchers(HttpMethod.POST,"/companies/**").hasRole(ADMIN.name())
 
+                           .requestMatchers(HttpMethod.POST,"/sector/**").hasRole(ADMIN.name())
+                           .requestMatchers(HttpMethod.POST,"/vacancy/**").hasRole(RECRUITER.name())
+
+                           .requestMatchers(HttpMethod.POST, "/users/application/create").hasAuthority(APPLICANT_WRITE.name())
+                           .requestMatchers(HttpMethod.POST, "/users/application/stages").hasAnyAuthority(RECRUITER.name(), HR.name(), DIRECTOR.name())
+                           .anyRequest().authenticated());
            return httpSecurity.build();
        } catch (Exception e) {
            throw new ServiceConfigurationError("Not authenticated to access this");

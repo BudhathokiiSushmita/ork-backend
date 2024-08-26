@@ -1,11 +1,9 @@
 package com.sushmita.ork.entity;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  * @author Sushmita Budhathoki on 2024-08-21
@@ -20,7 +18,8 @@ public class OrkUserDetail implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
+        //Spring will use list of authorities of each user
+        return user.getOrkRole().getRoleName().getAuthorities();
     }
 
     @Override

@@ -1,12 +1,13 @@
 package com.sushmita.ork.entity;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Sushmita Budhathoki on 2024-08-21
@@ -33,5 +34,14 @@ public class User extends AbstractPersistable<Long> implements Serializable {
 
     private String username;
     private String password;
-    private String role;
+
+    @OneToOne
+    private OrkRole orkRole;
+    private String email;
+    private String contactNumber;
+
+    //for applicant user ONLY
+    @OneToMany
+    private List<Application> applications;
+
 }
