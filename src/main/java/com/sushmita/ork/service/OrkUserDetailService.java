@@ -26,4 +26,17 @@ public class OrkUserDetailService implements UserDetailsService {
         }
         return user;
     }
+
+    public User authenticate(User user) {
+        User existingUser = userRepository.findUserByUsername(user.getUsername());
+        if(existingUser == null) {
+            throw new UsernameNotFoundException("Invalid Credentials");
+        } else {
+            if(!user.getPassword().equals(existingUser.getPassword())) {
+                throw new UsernameNotFoundException("Invalid Credentials");
+            } else {
+                return existingUser;
+            }
+        }
+    }
 }
