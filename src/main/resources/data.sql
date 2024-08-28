@@ -49,6 +49,6 @@
 --        (5, 7);
 
 
-INSERT IGNORE INTO user (id, username, password, ork_role_id, email, contact_number)
+INSERT IGNORE INTO user (id, username, password, ork_role_id, email, contact_number, created)
 VALUES
-       (1, 'admin', 'Admin@123456', 1, 'ork.admin@ork.com', '1234567899');
+       (1, 'admin', 'Admin@123456', 1, 'ork.admin@ork.com', '1234567899', '2024-08-28 07:28:30');

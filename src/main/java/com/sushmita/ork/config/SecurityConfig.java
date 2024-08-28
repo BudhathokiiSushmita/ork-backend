@@ -1,7 +1,10 @@
 package com.sushmita.ork.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.ServiceConfigurationError;
@@ -51,8 +54,12 @@ import static com.sushmita.ork.enums.Role.*;
  *
  * Same login page, dashboard and navigation is based on role's nav permissions
  */
+
+@Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
        try {
            httpSecurity.csrf(c -> c.disable())
@@ -65,6 +72,9 @@ public class SecurityConfig {
 
                            .requestMatchers(HttpMethod.POST, "/users/application/create").hasAuthority(APPLICANT_WRITE.name())
                            .requestMatchers(HttpMethod.POST, "/users/application/stages").hasAnyAuthority(RECRUITER.name(), HR.name(), DIRECTOR.name())
+
+                           .requestMatchers("/users/**").permitAll() //PUBLIC
+
                            .anyRequest().authenticated());
            return httpSecurity.build();
        } catch (Exception e) {
