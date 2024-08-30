@@ -32,8 +32,7 @@ public class SqlPatch {
         System.out.println("patching data");
         Set<String> sqlFiles = Set.of(
                 "nav_permission.sql",
-                "ork_role.sql",
-                "role_nav_permission.sql"
+                "ork_role.sql"
         );
         sqlFiles.stream().forEach(f -> {
             Resource resource = resourceLoader.getResource(BASE_URL + f); //to read file from classpath or any other location

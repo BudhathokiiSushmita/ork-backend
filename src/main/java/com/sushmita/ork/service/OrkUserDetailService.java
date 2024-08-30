@@ -1,5 +1,7 @@
 package com.sushmita.ork.service;
 
+import com.sushmita.ork.dtos.RegisterDto;
+import com.sushmita.ork.entity.CustomUser;
 import com.sushmita.ork.entity.User;
 import com.sushmita.ork.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +26,14 @@ public class OrkUserDetailService implements UserDetailsService {
         if(user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-        return user;
+        return new CustomUser(user);
     }
 
-    public User authenticate(User user) {
-        User existingUser = userRepository.findUserByUsername(user.getUsername());
-        if(existingUser == null) {
-            throw new UsernameNotFoundException("Invalid Credentials");
-        } else {
-            if(!user.getPassword().equals(existingUser.getPassword())) {
-                throw new UsernameNotFoundException("Invalid Credentials");
-            } else {
-                return existingUser;
-            }
-        }
+    public CustomUser register(RegisterDto registerDto) {
+//        CustomUser user = new CustomUser();
+//        user.setUsername(registerDto.getUsername());
+//        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+
+        return null;
     }
 }

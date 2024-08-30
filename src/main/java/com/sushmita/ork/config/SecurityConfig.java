@@ -2,15 +2,15 @@ package com.sushmita.ork.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.ServiceConfigurationError;
-
-import static com.sushmita.ork.enums.ActionPermission.APPLICANT_WRITE;
-import static com.sushmita.ork.enums.Role.*;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 
 /**
  * @author Sushmita Budhathoki on 2024-08-21
@@ -60,25 +60,28 @@ import static com.sushmita.ork.enums.Role.*;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
-       try {
-           httpSecurity.csrf(c -> c.disable())
-                   .authorizeHttpRequests(requests -> requests
-                           .requestMatchers(HttpMethod.GET,"/companies/**").permitAll() //PUBLIC
-                           .requestMatchers(HttpMethod.POST,"/companies/**").hasRole(ADMIN.name())
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf(c -> c.disable())
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers(HttpMethod.GET, "/companies/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/companies/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/sector/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/vacancy/**").hasRole("RECRUITER")
+                        .requestMatchers(HttpMethod.POST, "/users/application/create").hasAuthority("APPLICANT_WRITE")
+                        .requestMatchers(HttpMethod.POST, "/users/application/stages").hasAnyAuthority("RECRUITER", "HR", "DIRECTOR")
+                        .requestMatchers("/users/**").permitAll()
+                        .anyRequest().authenticated()
+                );
+        return http.build();
+    }
 
-                           .requestMatchers(HttpMethod.POST,"/sector/**").hasRole(ADMIN.name())
-                           .requestMatchers(HttpMethod.POST,"/vacancy/**").hasRole(RECRUITER.name())
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 
-                           .requestMatchers(HttpMethod.POST, "/users/application/create").hasAuthority(APPLICANT_WRITE.name())
-                           .requestMatchers(HttpMethod.POST, "/users/application/stages").hasAnyAuthority(RECRUITER.name(), HR.name(), DIRECTOR.name())
-
-                           .requestMatchers("/users/**").permitAll() //PUBLIC
-
-                           .anyRequest().authenticated());
-           return httpSecurity.build();
-       } catch (Exception e) {
-           throw new ServiceConfigurationError("Not authenticated to access this");
-       }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

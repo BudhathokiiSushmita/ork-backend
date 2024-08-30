@@ -22,9 +22,9 @@ public class OrkRole extends BaseEntity   {
    private Role roleName;
 
    // For dynamic navigation
-   @ManyToMany
-   @JoinTable(name = "role_nav_permission",
-           joinColumns = @JoinColumn(name = "role_id"),
-           inverseJoinColumns = @JoinColumn(name = "nav_permission_id"))
-   private Set<NavPermission> navPermissions;
+//   @ManyToMany
+//   @JoinTable(name = "role_nav_permission",
+//           joinColumns = @JoinColumn(name = "role_id"),
+//           inverseJoinColumns = @JoinColumn(name = "nav_permission_id"))
+//   private Set<NavPermission> navPermissions;
 }
