@@ -1,8 +1,10 @@
 package com.sushmita.ork.controller;
 
 import com.sushmita.ork.base.CustomResponse;
+import com.sushmita.ork.dtos.AuthResponseDto;
 import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.dtos.UserRequestDto;
+import com.sushmita.ork.jwtConfig.JwtGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,9 @@ public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private JwtGenerator jwtGenerator;
+
 //    @GetMapping("/{username}")
 //    public UserDetails getUserDetails(@PathVariable String username) {
 //        return orkUserDetailService.loadUserByUsername(username);
@@ -37,8 +42,8 @@ public class UserController {
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            return new ResponseEntity<>(CustomResponse.getResponse("successfully logged in", null), HttpStatus.OK);
+            String token = jwtGenerator.generateToken(authentication);
+            return new ResponseEntity<>(CustomResponse.getResponse("successfully logged in", new AuthResponseDto(token)), HttpStatus.OK);
         } catch (BadCredentialsException | UsernameNotFoundException e) {
             return new ResponseEntity<>(CustomResponse.getResponse("Invalid username or password", null), HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
