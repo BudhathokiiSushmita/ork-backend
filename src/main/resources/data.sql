@@ -1,54 +1,6 @@
 -- File name has to be data.sql, otherwise wont work
---
--- INSERT IGNORE INTO nav_permission (id, name, view_order)
--- VALUES
---        (1, 'DASHBOARD', 1),
---        (2, 'COMPANY', 5),
---        (3, 'SECTOR', 4),
---        (4, 'VACANCY', 6),
---        (5, 'APPLICANT', 3),
---        (6, 'USER', 2),
---        (7, 'APPLICATION', 7);
---
---
--- INSERT IGNORE INTO ork_role (id, role_name)
--- VALUES
---        (1, 1),
---        (2, 2),
---        (3, 3),
---        (4, 4),
---        (5, 5);
---
---
--- INSERT IGNORE INTO role_nav_permission (role_id, nav_permission_id)
--- VALUES
--- --        admin panel
---        (1, 1),
---        (1, 3),
---        (1, 5),
---        (1, 6),
---        (1, 7),
---
--- --        recruiter panel
---         (2, 4),
---         (2, 5),
---         (2, 6),
---         (2, 7),
---
--- --        hr panel
---        (3, 6),
---        (3, 7),
---
--- --        director panel
---        (4, 6),
---        (4, 7),
---
--- --        applicant panel
---        (5, 2),
---        (5, 4),
---        (5, 7);
-
 
 INSERT IGNORE INTO user (id, username, password, ork_role_id, email, contact_number, created)
 VALUES
-       (1, 'admin', 'Admin@123456', 1, 'ork.admin@ork.com', '1234567899', '2024-08-28 07:28:30');
+       (1, 'admin', '$2a$12$g13jVWTXy6GAAzVPd3/3MuJqxCcTGbeg3NOyQR/wFg.RUSw0ADNkO', 1, 'ork.admin@ork.com', '1234567899', '2024-08-28 07:28:30');
+-- Admin@123456
