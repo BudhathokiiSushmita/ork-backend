@@ -22,8 +22,8 @@ public class NavPermission extends BaseEntity   {
 
     private String name;
 
-//    @ManyToMany(mappedBy = "navPermissions") //this means OrkRole is the owning entity. It also ensures that only one bridge is formed.
-//    private Set<OrkRole> roles;
+    @ManyToMany(mappedBy = "navPermissions") //this means OrkRole is the owning entity. It also ensures that only one bridge is formed.
+    private Set<OrkRole> roles;
 
     private Long view_order;
 }
