@@ -4,7 +4,9 @@ import com.sushmita.ork.base.CustomResponse;
 import com.sushmita.ork.dtos.AuthResponseDto;
 import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.dtos.UserRequestDto;
+import com.sushmita.ork.entity.User;
 import com.sushmita.ork.jwtConfig.JwtGenerator;
+import com.sushmita.ork.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,14 +16,17 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import static com.sushmita.ork.constants.APIConstants.USER_API;
 
 /**
  * @author Sushmita Budhathoki on 2024-08-21
  */
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping(USER_API)
 public class UserController {
 
     @Autowired
@@ -29,6 +34,12 @@ public class UserController {
 
     @Autowired
     private JwtGenerator jwtGenerator;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 //    @GetMapping("/{username}")
 //    public UserDetails getUserDetails(@PathVariable String username) {
@@ -53,11 +64,20 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) {
-        // need to optimize this, find out real reason
         try{
+            if(userService.existsByUsername(registerDto.getUsername())) {
+                return new ResponseEntity<>("Username not available", HttpStatus.BAD_REQUEST);
+            }
 
-//            CustomUser newUser = orkUserDetailService.register(registerDto);
-            return new ResponseEntity<>(CustomResponse.getResponse("Successfully registered in", null), HttpStatus.OK);
+            User user = User.builder().username(registerDto.getUsername())
+                    .password(passwordEncoder.encode(registerDto.getPassword()))
+                    .email(registerDto.getEmail())
+                    .contactNumber(registerDto.getContactNumber())
+                    .orkRole(registerDto.getOrkRole())
+                    .build();
+
+            userService.saveUser(user);
+            return new ResponseEntity<>(CustomResponse.getResponse("Successfully registered", null), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(CustomResponse.getResponse(e.getMessage(), ""), HttpStatus.BAD_REQUEST);
         }
