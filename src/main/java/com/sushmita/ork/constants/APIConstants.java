@@ -1,0 +1,10 @@
+package com.sushmita.ork.constants;
+
+/**
+ * @author Sushmita Budhathoki on 2024-09-01
+ */
+public class APIConstants {
+
+    public static final String USER_API = "/users";
+    public static final String ROLE_API = "/roles";
+}
