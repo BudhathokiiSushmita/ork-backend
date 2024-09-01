@@ -28,22 +28,26 @@ public class SqlPatch {
     private final String BASE_URL = "classpath:db/patch/";
 
     @PostConstruct
-    public void executePatches() {
+    public void executePatches() throws InterruptedException {
         System.out.println("patching data");
         Set<String> sqlFiles = Set.of(
                 "nav_permission.sql",
-                "ork_role.sql",
-                "role_nav_permission.sql"
+                "ork_role.sql"
         );
+        patchData(sqlFiles);
+
+        //As it has foreign keys, so need to wait a lil for executing this
+        Thread.sleep(2000);
+        patchData(Set.of("role_nav_permission.sql"));
+        System.out.println("all patched. good to go");
+    }
+
+    private void patchData(Set<String> sqlFiles) {
         sqlFiles.stream().forEach(f -> {
             Resource resource = resourceLoader.getResource(BASE_URL + f); //to read file from classpath or any other location
             ResourceDatabasePopulator populator = new ResourceDatabasePopulator(resource); //Spring tool, executes SQL script,
             // legacy buffer reader could be used but this is easy way
             populator.execute(dataSource);
         });
-
-        System.out.println("all patched. good to go");
     }
-
-
 }

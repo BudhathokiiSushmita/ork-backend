@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-import static com.sushmita.ork.constants.SecurityConstants.JWT_EXPIRATION;
-import static com.sushmita.ork.constants.SecurityConstants.JWT_SECRET;
+import static com.sushmita.ork.constants.SECURITYConstants.JWT_EXPIRATION;
+import static com.sushmita.ork.constants.SECURITYConstants.JWT_SECRET;
 
 /**
  * @author Sushmita Budhathoki on 2024-08-30

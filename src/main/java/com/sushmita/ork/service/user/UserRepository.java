@@ -1,4 +1,4 @@
-package com.sushmita.ork.repository;
+package com.sushmita.ork.service.user;
 
 import com.sushmita.ork.entity.User;
 import org.springframework.data.repository.query.Param;
@@ -37,4 +37,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserRepository extends JpaRepository<User, Long>{
 
     User findUserByUsername(@Param("username") String username);
+
+    Boolean existsByUsername(String username);
 }
