@@ -1,10 +1,7 @@
 package com.sushmita.ork.entity;
 
 import com.sushmita.ork.base.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +24,7 @@ public class User  extends BaseEntity {
 
     private String password;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private OrkRole orkRole;
     private String email;
     private String contactNumber;
