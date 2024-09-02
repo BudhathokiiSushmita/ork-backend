@@ -4,7 +4,6 @@ import com.sushmita.ork.base.CustomResponse;
 import com.sushmita.ork.dtos.AuthResponseDto;
 import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.dtos.UserRequestDto;
-import com.sushmita.ork.entity.User;
 import com.sushmita.ork.jwtConfig.JwtGenerator;
 import com.sushmita.ork.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import static com.sushmita.ork.constants.APIConstants.USER_API;
@@ -38,8 +36,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
 //    @GetMapping("/{username}")
 //    public UserDetails getUserDetails(@PathVariable String username) {
@@ -54,32 +50,21 @@ public class UserController {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtGenerator.generateToken(authentication);
-            return new ResponseEntity<>(CustomResponse.getResponse("successfully logged in", new AuthResponseDto(token)), HttpStatus.OK);
+            return CustomResponse.getSuccessResponse("successfully logged in", new AuthResponseDto(token));
         } catch (BadCredentialsException | UsernameNotFoundException e) {
-            return new ResponseEntity<>(CustomResponse.getResponse("Invalid username or password", null), HttpStatus.UNAUTHORIZED);
+            return CustomResponse.getErrorResponse("Invalid username or password", null, HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
-            return new ResponseEntity<>(CustomResponse.getResponse("Authentication failed", null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return CustomResponse.getErrorResponse("Authentication failed", null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) {
         try{
-            if(userService.existsByUsername(registerDto.getUsername())) {
-                return new ResponseEntity<>("Username not available", HttpStatus.BAD_REQUEST);
-            }
-
-            User user = User.builder().username(registerDto.getUsername())
-                    .password(passwordEncoder.encode(registerDto.getPassword()))
-                    .email(registerDto.getEmail())
-                    .contactNumber(registerDto.getContactNumber())
-                    .orkRole(registerDto.getOrkRole())
-                    .build();
-
-            userService.saveUser(user);
-            return new ResponseEntity<>(CustomResponse.getResponse("Successfully registered", null), HttpStatus.OK);
+            userService.saveUser(registerDto);
+            return CustomResponse.getSuccessResponse("Successfully registered", null);
         } catch (Exception e) {
-            return new ResponseEntity<>(CustomResponse.getResponse(e.getMessage(), ""), HttpStatus.BAD_REQUEST);
+            return CustomResponse.getErrorResponse(e.getMessage(), "", HttpStatus.BAD_REQUEST);
         }
     }
 }
