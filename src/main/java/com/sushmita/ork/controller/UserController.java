@@ -5,6 +5,7 @@ import com.sushmita.ork.dtos.AuthResponseDto;
 import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.dtos.UserRequestDto;
 import com.sushmita.ork.jwtConfig.JwtGenerator;
+import com.sushmita.ork.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +17,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import static com.sushmita.ork.constants.APIConstants.USER_API;
+
 /**
  * @author Sushmita Budhathoki on 2024-08-21
  */
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping(USER_API)
 public class UserController {
 
     @Autowired
@@ -29,6 +32,10 @@ public class UserController {
 
     @Autowired
     private JwtGenerator jwtGenerator;
+
+    @Autowired
+    private UserService userService;
+
 
 //    @GetMapping("/{username}")
 //    public UserDetails getUserDetails(@PathVariable String username) {
@@ -43,23 +50,21 @@ public class UserController {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtGenerator.generateToken(authentication);
-            return new ResponseEntity<>(CustomResponse.getResponse("successfully logged in", new AuthResponseDto(token)), HttpStatus.OK);
+            return CustomResponse.getSuccessResponse("successfully logged in", new AuthResponseDto(token));
         } catch (BadCredentialsException | UsernameNotFoundException e) {
-            return new ResponseEntity<>(CustomResponse.getResponse("Invalid username or password", null), HttpStatus.UNAUTHORIZED);
+            return CustomResponse.getErrorResponse("Invalid username or password", null, HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {
-            return new ResponseEntity<>(CustomResponse.getResponse("Authentication failed", null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return CustomResponse.getErrorResponse("Authentication failed", null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) {
-        // need to optimize this, find out real reason
         try{
-
-//            CustomUser newUser = orkUserDetailService.register(registerDto);
-            return new ResponseEntity<>(CustomResponse.getResponse("Successfully registered in", null), HttpStatus.OK);
+            userService.saveUser(registerDto);
+            return CustomResponse.getSuccessResponse("Successfully registered", null);
         } catch (Exception e) {
-            return new ResponseEntity<>(CustomResponse.getResponse(e.getMessage(), ""), HttpStatus.BAD_REQUEST);
+            return CustomResponse.getErrorResponse(e.getMessage(), "", HttpStatus.BAD_REQUEST);
         }
     }
 }

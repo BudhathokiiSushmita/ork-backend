@@ -1,6 +1,6 @@
 package com.sushmita.ork.jwtConfig;
 
-import com.sushmita.ork.service.OrkUserDetailService;
+import com.sushmita.ork.service.user.OrkUserDetailService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

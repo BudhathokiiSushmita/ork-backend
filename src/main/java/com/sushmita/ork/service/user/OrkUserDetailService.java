@@ -1,9 +1,9 @@
-package com.sushmita.ork.service;
+package com.sushmita.ork.service.user;
 
 import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.entity.CustomUser;
 import com.sushmita.ork.entity.User;
-import com.sushmita.ork.repository.UserRepository;
+import com.sushmita.ork.service.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
