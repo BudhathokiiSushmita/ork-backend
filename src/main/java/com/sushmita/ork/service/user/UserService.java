@@ -1,18 +1,13 @@
 package com.sushmita.ork.service.user;
 
 import com.sushmita.ork.dtos.RegisterDto;
-import com.sushmita.ork.entity.Company;
 import com.sushmita.ork.entity.OrkRole;
 import com.sushmita.ork.entity.User;
 import com.sushmita.ork.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import static com.sushmita.ork.enums.Role.APPLICANT;
 
 /**
  * @author Sushmita Budhathoki on 2024-09-01
