@@ -34,12 +34,10 @@ import static com.sushmita.ork.constants.APIConstants.USER_API;
 @RequestMapping(USER_API)
 public class UserController {
 
-//    @Autowired
     private AuthenticationManager authenticationManager;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
-
     private JwtGenerator jwtGenerator;
 
 
@@ -51,18 +49,6 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
         this.jwtGenerator = jwtGenerator;
     }
-//
-//    @Autowired
-//    private JwtGenerator jwtGenerator;
-//
-//    @Autowired
-//    private UserService userService;
-
-
-//    @GetMapping("/{username}")
-//    public UserDetails getUserDetails(@PathVariable String username) {
-//        return orkUserDetailService.loadUserByUsername(username);
-//    }
 
     @PostMapping()
     public ResponseEntity<?> authenticate(@RequestBody UserRequestDto user) {
