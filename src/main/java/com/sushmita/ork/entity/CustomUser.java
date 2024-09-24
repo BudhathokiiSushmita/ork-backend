@@ -19,16 +19,16 @@ import java.util.Collections;
 @NoArgsConstructor
 public class CustomUser implements UserDetails {
 
-    private User user;
+    private UserEntity user;
 
-    public CustomUser(User user) {
+    public CustomUser(UserEntity user) {
         this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Convert roles to Spring Security authorities
-        return Collections.singletonList(new SimpleGrantedAuthority(user.getOrkRole().getRoleName().toString()));
+        return Collections.singletonList(new SimpleGrantedAuthority(""));
     }
 
     @Override

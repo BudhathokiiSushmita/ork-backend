@@ -1,16 +1,20 @@
 package com.sushmita.ork.service.role;
 
 import com.sushmita.ork.entity.OrkRole;
+import com.sushmita.ork.entity.Roles;
 import com.sushmita.ork.enums.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  * @author Sushmita Budhathoki on 2024-09-01
  */
 
 @Repository
-public interface RoleRepository extends JpaRepository<OrkRole, Long> {
+public interface RoleRepository extends JpaRepository<Roles, Integer> {
 
-    OrkRole findOrkRoleByRoleName(Role roleName);
+//    OrkRole findOrkRoleByRoleName(Role roleName);
+    Optional<Roles> findByName(String name);
 }

@@ -2,7 +2,7 @@ package com.sushmita.ork.service.user;
 
 import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.entity.OrkRole;
-import com.sushmita.ork.entity.User;
+import com.sushmita.ork.entity.UserEntity;
 import com.sushmita.ork.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -37,15 +37,15 @@ public class UserService {
 //            company
 //        }
 
-        OrkRole orkRole = roleService.getByRoleName(registerDto.getRoleName());
-
-        User user = User.builder().username(registerDto.getUsername())
-                .password(passwordEncoder.encode(registerDto.getPassword()))
-                .email(registerDto.getEmail())
-                .contactNumber(registerDto.getContactNumber())
-                .orkRole(orkRole)
-                .build();
-        userRepository.save(user);
+//        OrkRole orkRole = roleService.getByRoleName(registerDto.getRoleName());
+//
+//        UserEntity user = UserEntity.builder().username(registerDto.getUsername())
+//                .password(passwordEncoder.encode(registerDto.getPassword()))
+//                .email(registerDto.getEmail())
+//                .contactNumber(registerDto.getContactNumber())
+////                .orkRole(orkRole)
+//                .build();
+//        userRepository.save(user);
     }
 
     public Boolean existsByUsername(String username) {
