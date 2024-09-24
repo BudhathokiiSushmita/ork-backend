@@ -37,7 +37,7 @@ public class UserService {
 
 //        OrkRole orkRole = roleService.getByRoleName(registerDto.getRoleName());
 //
-//        UserEntity user = UserEntity.builder().username(registerDto.getUsername())
+//        OrkUser user = OrkUser.builder().username(registerDto.getUsername())
 //                .password(passwordEncoder.encode(registerDto.getPassword()))
 //                .email(registerDto.getEmail())
 //                .contactNumber(registerDto.getContactNumber())

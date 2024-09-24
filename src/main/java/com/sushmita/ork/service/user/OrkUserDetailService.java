@@ -1,8 +1,8 @@
 package com.sushmita.ork.service.user;
 
 import com.sushmita.ork.dtos.RegisterDto;
+import com.sushmita.ork.entity.OrkUser;
 import com.sushmita.ork.entity.Role;
-import com.sushmita.ork.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -33,14 +33,14 @@ public class OrkUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        OrkUser user = userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
 //        if(user == null) {
 //            throw new UsernameNotFoundException("User not found");
 //        }
         return new User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 
-    public UserEntity register(RegisterDto registerDto) {
+    public OrkUser register(RegisterDto registerDto) {
 //        CustomUser user = new CustomUser();
 //        user.setUsername(registerDto.getUsername());
 //        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));

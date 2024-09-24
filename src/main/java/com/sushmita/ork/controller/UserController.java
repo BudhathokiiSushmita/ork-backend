@@ -4,8 +4,8 @@ import com.sushmita.ork.base.CustomResponse;
 import com.sushmita.ork.dtos.AuthResponseDto;
 import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.dtos.UserRequestDto;
+import com.sushmita.ork.entity.OrkUser;
 import com.sushmita.ork.entity.Role;
-import com.sushmita.ork.entity.UserEntity;
 import com.sushmita.ork.jwtConfig.JwtGenerator;
 import com.sushmita.ork.service.role.RoleRepository;
 import com.sushmita.ork.service.user.UserRepository;
@@ -68,7 +68,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) {
         try{
-            UserEntity user = new UserEntity();
+            OrkUser user = new OrkUser();
             user.setUsername(registerDto.getUsername());
             user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 

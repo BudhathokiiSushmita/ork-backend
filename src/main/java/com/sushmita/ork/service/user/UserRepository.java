@@ -1,6 +1,6 @@
 package com.sushmita.ork.service.user;
 
-import com.sushmita.ork.entity.UserEntity;
+import com.sushmita.ork.entity.OrkUser;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,10 +13,10 @@ import java.util.Optional;
  */
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Long>{
+public interface UserRepository extends JpaRepository<OrkUser, Long>{
 
     //query method provided by JPA
-    Optional<UserEntity> findUserByUsername(@Param("username") String username);
+    Optional<OrkUser> findUserByUsername(@Param("username") String username);
 
     Boolean existsByUsername(String username);
 }

@@ -19,15 +19,14 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class UserEntity   extends BaseEntity {
+public class OrkUser extends BaseEntity {
 
     private String username;
 
     private String password;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    private OrkRole orkRole;
     private String email;
+
     private String contactNumber;
 
     //for applicant user ONLY
