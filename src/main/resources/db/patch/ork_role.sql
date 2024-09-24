@@ -1,4 +1,4 @@
-INSERT IGNORE INTO ork_role (id, created, role_name)
+INSERT IGNORE INTO roles (id, created, name)
 VALUES
        (1, '2024-08-28 07:28:30',1),
        (2,'2024-08-28 07:28:30', 2),

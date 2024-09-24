@@ -31,14 +31,14 @@ public class SqlPatch {
     public void executePatches() throws InterruptedException {
         System.out.println("patching data");
         Set<String> sqlFiles = Set.of(
-                "nav_permission.sql"
-//                "ork_role.sql"
+                "nav_permission.sql",
+                "ork_role.sql"
         );
         patchData(sqlFiles);
 
         //As it has foreign keys, so need to wait a lil for executing this
         Thread.sleep(2000);
-//        patchData(Set.of("ork_role_nav_permission.sql"));
+        patchData(Set.of("ork_role_nav_permission.sql"));
         System.out.println("all patched. good to go");
     }
 

@@ -1,5 +1,5 @@
 
-INSERT IGNORE INTO ork_role_nav_permission (ork_role_id, nav_permission_id)
+INSERT IGNORE INTO role_nav_permission (role_id, nav_permission_id)
 VALUES
 --        admin panel
        (1, 1),

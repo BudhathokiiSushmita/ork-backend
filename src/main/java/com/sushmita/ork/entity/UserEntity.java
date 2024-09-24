@@ -33,8 +33,8 @@ public class UserEntity   extends BaseEntity {
     private String contactNumber;
 
     //for applicant user ONLY
-//    @OneToMany(fetch = FetchType.EAGER)
-//    private List<Application> applications;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Application> applications;
 
 
     @ManyToMany(fetch = FetchType.EAGER)

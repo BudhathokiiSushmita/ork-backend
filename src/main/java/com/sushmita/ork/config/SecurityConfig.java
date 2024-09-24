@@ -31,11 +31,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-//    @Autowired
     private JwtAuthException jwtAuthException;
-
-//    @Autowired
-//    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     private OrkUserDetailService orkUserDetailService;
 
@@ -54,18 +50,18 @@ public class SecurityConfig {
                 .sessionManagement(s ->
                         s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(requests -> requests
-//                        .requestMatchers(HttpMethod.GET, "/companies/**").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/companies/**").hasRole("ADMIN")
-//                        .requestMatchers(HttpMethod.POST, "/sector/**").hasRole("ADMIN")
-//                        .requestMatchers(HttpMethod.POST, "/vacancy/**").hasRole("RECRUITER")
-//                        .requestMatchers(HttpMethod.POST, "/users/application/create").hasAuthority("APPLICANT_WRITE")
-//                        .requestMatchers(HttpMethod.POST, "/users/application/stages").hasAnyAuthority("RECRUITER", "HR", "DIRECTOR")
-//
-//                        //user
+                        .requestMatchers(HttpMethod.GET, "/companies/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/companies/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/sector/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/vacancy/**").hasRole("RECRUITER")
+                        .requestMatchers(HttpMethod.POST, "/users/application/create").hasAuthority("APPLICANT_WRITE")
+                        .requestMatchers(HttpMethod.POST, "/users/application/stages").hasAnyAuthority("RECRUITER", "HR", "DIRECTOR")
+
+                        //user
                         .requestMatchers(HttpMethod.POST,"/users").permitAll()
                         .requestMatchers(HttpMethod.POST,"/users/register").permitAll()
-//
-//                        //role
+
+                        //role
 ////                        .requestMatchers(HttpMethod.GET, "/roles/all").permitAll()
 //
 //                        //nav-permission, later needs to be authenticated
@@ -95,23 +91,4 @@ public class SecurityConfig {
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter();
     }
-
-    //not needed
-//    @Bean
-//    public UserDetailsService users() {
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password("Admin@123456")
-//                .roles("ADMIN")
-//                .build();
-//
-//        UserDetails user = User.builder()
-//                .username("user")
-//                .password("Admin@123456")
-//                .roles("USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(admin, user);
-//
-//    }
 }

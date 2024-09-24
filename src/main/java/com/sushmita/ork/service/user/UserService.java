@@ -1,8 +1,6 @@
 package com.sushmita.ork.service.user;
 
 import com.sushmita.ork.dtos.RegisterDto;
-import com.sushmita.ork.entity.OrkRole;
-import com.sushmita.ork.entity.UserEntity;
 import com.sushmita.ork.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

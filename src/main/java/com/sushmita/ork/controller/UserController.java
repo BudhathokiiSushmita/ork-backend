@@ -73,7 +73,7 @@ public class UserController {
             user.setUsername(registerDto.getUsername());
             user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 
-            Roles roles = roleRepository.findByName("USER").get();
+            Roles roles = roleRepository.findByName("ADMIN").get();
 
             user.setRoles(Collections.singletonList(roles));
 
