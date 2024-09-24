@@ -1,7 +1,7 @@
 package com.sushmita.ork.service.user;
 
 import com.sushmita.ork.dtos.RegisterDto;
-import com.sushmita.ork.entity.Roles;
+import com.sushmita.ork.entity.Role;
 import com.sushmita.ork.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,7 +48,7 @@ public class OrkUserDetailService implements UserDetailsService {
         return null;
     }
 
-    private Collection<GrantedAuthority> mapRolesToAuthorities(List<Roles> roles) {
+    private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName().toString())).collect(Collectors.toList());
     }
 }

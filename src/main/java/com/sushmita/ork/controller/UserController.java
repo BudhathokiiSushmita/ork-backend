@@ -4,7 +4,7 @@ import com.sushmita.ork.base.CustomResponse;
 import com.sushmita.ork.dtos.AuthResponseDto;
 import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.dtos.UserRequestDto;
-import com.sushmita.ork.entity.Roles;
+import com.sushmita.ork.entity.Role;
 import com.sushmita.ork.entity.UserEntity;
 import com.sushmita.ork.jwtConfig.JwtGenerator;
 import com.sushmita.ork.service.role.RoleRepository;
@@ -21,7 +21,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.Collections;
 
 import static com.sushmita.ork.constants.APIConstants.USER_API;
@@ -73,9 +72,9 @@ public class UserController {
             user.setUsername(registerDto.getUsername());
             user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 
-            Roles roles = roleRepository.findByName("ADMIN").get();
+            Role role = roleRepository.findByName("ADMIN").get();
 
-            user.setRoles(Collections.singletonList(roles));
+            user.setRoles(Collections.singletonList(role));
 
             userRepository.save(user);
             return CustomResponse.getSuccessResponse("Successfully registered", null);

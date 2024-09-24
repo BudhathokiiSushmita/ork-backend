@@ -38,6 +38,6 @@ public class UserEntity   extends BaseEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name= "user_id", referencedColumnName = "id"),
     inverseJoinColumns =  @JoinColumn(name= "role_id", referencedColumnName = "id"))
-    private List<Roles> roles = new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();
 }
 
