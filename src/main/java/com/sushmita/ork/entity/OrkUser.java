@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,19 +19,24 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-public class User  extends BaseEntity {
+public class OrkUser extends BaseEntity {
 
     private String username;
 
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private OrkRole orkRole;
     private String email;
+
     private String contactNumber;
 
     //for applicant user ONLY
     @OneToMany(fetch = FetchType.EAGER)
     private List<Application> applications;
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name= "user_id", referencedColumnName = "id"),
+    inverseJoinColumns =  @JoinColumn(name= "role_id", referencedColumnName = "id"))
+    private List<Role> roles = new ArrayList<>();
 }
 

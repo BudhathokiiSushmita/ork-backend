@@ -29,6 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private OrkUserDetailService orkUserDetailService;
 
+
     //link in SFC, before getting to controller, checks if there is token in the header
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -45,12 +46,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             //getting UserDetails using username
             UserDetails userDetails = orkUserDetailService.loadUserByUsername(username);
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails,
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null,
                     userDetails.getAuthorities());
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+            if (SecurityContextHolder.getContext().getAuthentication() != null) {
+                System.out.println("Authentication in SecurityContextHolder: " + SecurityContextHolder.getContext().getAuthentication().getName());
+            }
         }
 
-        filterChain.doFilter(request, response);
+        try {
+            System.out.println("Before filterChain.doFilter");
+            filterChain.doFilter(request, response);
+            System.out.println("After filterChain.doFilter");
+        } catch (Exception e) {
+            System.out.println("Error in filter chain: " + e.getMessage());
+            throw e;
+        }
     }
 }

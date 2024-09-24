@@ -15,7 +15,7 @@ public class RegisterDto {
 
    private String username;
    private String password;
-   private String roleName; //use this to fetch role and then attach company
+//   private String roleName; //use this to fetch role and then attach company
    private String email;
    private String contactNumber;
 

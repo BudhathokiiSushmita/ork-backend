@@ -4,8 +4,11 @@ import com.sushmita.ork.base.CustomResponse;
 import com.sushmita.ork.dtos.AuthResponseDto;
 import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.dtos.UserRequestDto;
+import com.sushmita.ork.entity.OrkUser;
+import com.sushmita.ork.entity.Role;
 import com.sushmita.ork.jwtConfig.JwtGenerator;
-import com.sushmita.ork.service.user.UserService;
+import com.sushmita.ork.service.role.RoleRepository;
+import com.sushmita.ork.service.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +18,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
 
 import static com.sushmita.ork.constants.APIConstants.USER_API;
 
@@ -27,22 +33,23 @@ import static com.sushmita.ork.constants.APIConstants.USER_API;
 @RequestMapping(USER_API)
 public class UserController {
 
-    @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
+    private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private PasswordEncoder passwordEncoder;
     private JwtGenerator jwtGenerator;
 
+
     @Autowired
-    private UserService userService;
+    public UserController(AuthenticationManager authenticationManager, UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, JwtGenerator jwtGenerator) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtGenerator = jwtGenerator;
+    }
 
-
-//    @GetMapping("/{username}")
-//    public UserDetails getUserDetails(@PathVariable String username) {
-//        return orkUserDetailService.loadUserByUsername(username);
-//    }
-
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<?> authenticate(@RequestBody UserRequestDto user) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -61,7 +68,15 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) {
         try{
-            userService.saveUser(registerDto);
+            OrkUser user = new OrkUser();
+            user.setUsername(registerDto.getUsername());
+            user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+
+            Role role = roleRepository.findByName("ADMIN").get();
+
+            user.setRoles(Collections.singletonList(role));
+
+            userRepository.save(user);
             return CustomResponse.getSuccessResponse("Successfully registered", null);
         } catch (Exception e) {
             return CustomResponse.getErrorResponse(e.getMessage(), "", HttpStatus.BAD_REQUEST);

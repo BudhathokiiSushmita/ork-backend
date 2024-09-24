@@ -7,4 +7,5 @@ public class APIConstants {
 
     public static final String USER_API = "/users";
     public static final String ROLE_API = "/roles";
+    public static final String NAV_PERMISSION_API = "/nav-permissions";
 }

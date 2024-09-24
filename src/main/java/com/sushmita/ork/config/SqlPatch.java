@@ -38,7 +38,7 @@ public class SqlPatch {
 
         //As it has foreign keys, so need to wait a lil for executing this
         Thread.sleep(2000);
-        patchData(Set.of("role_nav_permission.sql"));
+        patchData(Set.of("ork_role_nav_permission.sql"));
         System.out.println("all patched. good to go");
     }
 
