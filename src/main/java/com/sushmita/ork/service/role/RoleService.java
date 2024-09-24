@@ -1,7 +1,7 @@
 package com.sushmita.ork.service.role;
 
 import com.sushmita.ork.entity.Roles;
-import com.sushmita.ork.enums.Role;
+import com.sushmita.ork.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +24,8 @@ public class RoleService {
     }
 
     public Roles getByRoleName(String roleName) {
-        Role role = Role.valueOf(roleName);
-//        return roleRepository.findOrkRoleByRoleName(role);
+        RoleType roleType = RoleType.valueOf(roleName);
+//        return roleRepository.findOrkRoleByRoleName(roleType);
         return null;
     }
 

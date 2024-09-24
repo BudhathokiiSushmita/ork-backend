@@ -1,7 +1,7 @@
 package com.sushmita.ork.entity;
 
 import com.sushmita.ork.base.BaseEntity;
-import com.sushmita.ork.enums.Role;
+import com.sushmita.ork.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +21,7 @@ import java.util.List;
 public class Roles extends BaseEntity {
 
    @Enumerated(EnumType.STRING)
-   private Role name;
+   private RoleType name;
 
    @ManyToMany(fetch = FetchType.EAGER)
    @JoinTable(name = "role_nav_permission", joinColumns = @JoinColumn(name= "role_id", referencedColumnName = "id"),

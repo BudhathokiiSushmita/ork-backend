@@ -12,9 +12,9 @@ import java.util.Set;
  */
 
 @RequiredArgsConstructor
-public enum Role {
+public enum RoleType {
 
-   //linking Role and ActionPermissions
+   //linking RoleType and ActionPermissions
    ADMIN(Set.of(
            ActionPermission.ADMIN_READ,
            ActionPermission.ADMIN_WRITE,
