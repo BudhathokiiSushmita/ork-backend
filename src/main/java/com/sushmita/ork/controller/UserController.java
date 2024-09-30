@@ -6,6 +6,7 @@ import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.dtos.UserRequestDto;
 import com.sushmita.ork.entity.OrkUser;
 import com.sushmita.ork.entity.Role;
+import com.sushmita.ork.enums.RoleType;
 import com.sushmita.ork.jwtConfig.JwtGenerator;
 import com.sushmita.ork.service.role.RoleRepository;
 import com.sushmita.ork.service.user.UserRepository;
@@ -72,7 +73,7 @@ public class UserController {
             user.setUsername(registerDto.getUsername());
             user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 
-            Role role = roleRepository.findByName("ADMIN").get();
+            Role role = roleRepository.findByName(RoleType.ADMIN);
 
             user.setRoles(Collections.singletonList(role));
 

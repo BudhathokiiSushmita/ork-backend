@@ -25,7 +25,8 @@ public class Role extends BaseEntity {
 
    @ManyToMany(fetch = FetchType.EAGER)
    @JoinTable(name = "role_nav_permission", joinColumns = @JoinColumn(name= "role_id", referencedColumnName = "id"),
-           inverseJoinColumns =  @JoinColumn(name= "nav_permission_id", referencedColumnName = "id"))
+           inverseJoinColumns =  @JoinColumn(name= "nav_permission_id", referencedColumnName = "id"),
+           uniqueConstraints = @UniqueConstraint(columnNames = {"role_id", "nav_permission_id"}))
    private List<NavPermission> navPermissions = new ArrayList<>();
 
 }
