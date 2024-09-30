@@ -5,8 +5,6 @@ import com.sushmita.ork.enums.RoleType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 /**
  * @author Sushmita Budhathoki on 2024-09-01
  */
