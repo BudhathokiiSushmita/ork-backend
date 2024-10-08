@@ -13,8 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 /**
  * @author Sushmita Budhathoki on 2024-08-21
@@ -34,7 +33,7 @@ public class OrkUserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         OrkUser user = userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-        return new User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
+        return new User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRole()));
     }
 
     public OrkUser register(RegisterDto registerDto) {
@@ -45,7 +44,8 @@ public class OrkUserDetailService implements UserDetailsService {
         return null;
     }
 
-    private Collection<GrantedAuthority> mapRolesToAuthorities(List<Role> roles) {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName().toString())).collect(Collectors.toList());
+    private Collection<GrantedAuthority> mapRolesToAuthorities(Role role) {
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getName().toString());
+        return Set.of(grantedAuthority);
     }
 }

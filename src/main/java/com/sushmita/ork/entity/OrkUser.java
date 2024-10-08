@@ -34,10 +34,7 @@ public class OrkUser extends BaseEntity {
     private List<Application> applications;
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name= "user_id", referencedColumnName = "id"),
-    inverseJoinColumns =  @JoinColumn(name= "role_id", referencedColumnName = "id"),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "role_id"}))
-    private List<Role> roles = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Role role;
 }
 

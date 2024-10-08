@@ -75,7 +75,7 @@ public class UserController {
 
             Role role = roleRepository.findByName(RoleType.ADMIN);
 
-            user.setRoles(Collections.singletonList(role));
+            user.setRole(role);
 
             userRepository.save(user);
             return CustomResponse.getSuccessResponse("Successfully registered", null);
