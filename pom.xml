@@ -98,6 +98,24 @@
 		<!--		for JWT token-->
 
 
+<!--		DTO to Entity-->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-processor</artifactId>
+			<version>1.6.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--		DTO to Entity-->
+
+
+
 	</dependencies>
 
 	<build>
