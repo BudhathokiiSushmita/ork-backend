@@ -88,5 +88,13 @@ CustomUser
 
 
 New idea
-Admin will create recruiter
+Admin will create recruiter -- going with this
 Recruiter will create hr and director
+
+Recruiter
+- Login
+- will add their resp company first mandatory
+- will create HR and director user
+- Posts vacancy based on area
+* - Forwards to HR of the company
+*

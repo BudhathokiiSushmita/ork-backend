@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.management.ServiceNotFoundException;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Sushmita Budhathoki on 2024-09-01
@@ -21,17 +22,20 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public Set<Role> getAllRole() {
+    public Set<Role> getAllRoleAndNavPermission() {
         return Set.copyOf(roleRepository.findAll());
     }
 
-    public Role getByRoleName(String roleName) {
-        RoleType roleType = RoleType.valueOf(roleName);
-//        return roleRepository.findOrkRoleByRoleName(roleType);
-        return null;
+    public Role getByRoleName(RoleType roleName) {
+        return roleRepository.findByName(roleName);
     }
 
     public List<NavPermission> getAllNavPermissionsByRole() throws ServiceNotFoundException {
         return roleRepository.findByName(AuthService.getCurrentRoleType()).getNavPermissions();
+    }
+
+    public List<RoleType> getAllRole() {
+        List<Role> roles =  roleRepository.findAll();
+        return roles.stream().map(Role::getName).collect(Collectors.toList());
     }
 }
