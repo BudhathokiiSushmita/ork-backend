@@ -1,6 +1,7 @@
 package com.sushmita.ork.base;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -13,6 +14,7 @@ import java.util.Date;
  */
 
 @MappedSuperclass
+@Data
 public class BaseEntity implements Serializable {
 
    @Id
@@ -32,4 +34,5 @@ public class BaseEntity implements Serializable {
    @CreatedBy
    @Column(updatable = false)
    private Long createdBy;
+
 }
