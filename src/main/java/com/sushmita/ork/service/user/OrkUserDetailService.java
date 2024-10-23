@@ -9,16 +9,14 @@ import com.sushmita.ork.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.ServiceConfigurationError;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Sushmita Budhathoki on 2024-08-21
@@ -73,5 +71,10 @@ public class OrkUserDetailService implements UserDetailsService {
     public List<UserDto> getAllUser() {
         List<OrkUser> userList = userRepository.findAll().stream().toList();
         return userList.stream().map(UserMapper.INSTANCE::mapEntityToDto).toList();
+    }
+
+    public Optional<Long> getCurrentUserId() {
+        OrkUser user = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        return Optional.of(user.getId());
     }
 }

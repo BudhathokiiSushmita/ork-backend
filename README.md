@@ -98,3 +98,6 @@ Recruiter
 - Posts vacancy based on area
 * - Forwards to HR of the company
 *
+
+If no companies have been created by that user, open company form
+create company, 
