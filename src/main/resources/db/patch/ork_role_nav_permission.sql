@@ -3,6 +3,7 @@ INSERT IGNORE INTO role_nav_permission (role_id, nav_permission_id)
 VALUES
 --        admin panel
        (1, 1),
+       (1, 2),
        (1, 3),
        (1, 5),
        (1, 6),
