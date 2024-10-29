@@ -1,12 +1,15 @@
 package com.sushmita.ork.service.company;
 
 import com.sushmita.ork.base.AuthService;
+import com.sushmita.ork.dtos.CompanyDto;
+import com.sushmita.ork.dtos.UserResponseDto;
 import com.sushmita.ork.entity.Company;
 import com.sushmita.ork.enums.RoleType;
 import com.sushmita.ork.service.user.OrkUserDetailService;
 import org.springframework.stereotype.Service;
 
 import javax.management.ServiceNotFoundException;
+import java.util.List;
 
 /**
  * @author Sushmita Budhathoki on 2024-10-22
@@ -49,5 +52,18 @@ public class CompanyService {
     public Company createCompany(Company company) {
         company.setCreatedBy(orkUserDetailService.getCurrentUserId().orElseThrow(() -> new NullPointerException("No User found")));
         return companyRepository.save(company);
+    }
+
+    public List<CompanyDto> getAllCompany() {
+        List<Company> companyList = companyRepository.findAll();
+        return companyList.stream().map(f ->
+                new CompanyDto(
+                        f.getId(),
+                        f.getName(),
+                        f.getAddress(),
+                        new UserResponseDto(
+                                orkUserDetailService.getUserById(f.getCreatedBy()).getUsername()),
+                        f.getCreated())).toList();
+
     }
 }

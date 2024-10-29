@@ -77,4 +77,8 @@ public class OrkUserDetailService implements UserDetailsService {
         OrkUser user = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
         return Optional.of(user.getId());
     }
+
+    public OrkUser getUserById(Long id) {
+        return userRepository.findById(id).get();
+    }
 }

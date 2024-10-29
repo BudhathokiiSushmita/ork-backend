@@ -42,4 +42,13 @@ public class CompanyController {
             return CustomResponse.getErrorResponse("Couldn't create company", "", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping(value = "/get-all-companies")
+    public ResponseEntity<?> getAllCompany() {
+        try {
+            return CustomResponse.getSuccessResponse("Fetched successfully", companyService.getAllCompany());
+        } catch (Exception e) {
+            return CustomResponse.getErrorResponse("Couldn't get company", "", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
