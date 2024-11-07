@@ -1,7 +1,10 @@
 package com.sushmita.ork.entity;
 
 import com.sushmita.ork.base.BaseEntity;
+import com.sushmita.ork.enums.VacancyType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,14 +18,30 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vacancy extends BaseEntity   {
+public class Vacancy extends BaseEntity {
 
    private String title;
+   private VacancyType vacancyType;
+   private Long positionNumber;
    private String description;
-   private String educationQualification;
-   private String requirement;
+
+   @Column(columnDefinition = "LONGTEXT")
+   private String qualification; // TODO using textarea for now, update this as form array in next version
+
+   @Column(columnDefinition = "LONGTEXT")
+   private String requirement; // TODO using textarea for now, update this as form array in next version
+
    private Date startDate;
    private Date deadline;
    private Date createdAt;
-   private String salary;
+   private String salaryRange;
+   private String applicationProcedure;
+   private String documentRequirement;
+   private Boolean isPaidPosition;
+
+   @ManyToOne
+   private Company company;
+
+   @ManyToOne
+   private Sector sector;
 }
