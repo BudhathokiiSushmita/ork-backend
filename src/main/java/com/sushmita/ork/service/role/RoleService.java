@@ -22,6 +22,10 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
+
+    @Autowired
+    private AuthService authService;
+
     public Set<Role> getAllRoleAndNavPermission() {
         return Set.copyOf(roleRepository.findAll());
     }
@@ -31,7 +35,7 @@ public class RoleService {
     }
 
     public List<NavPermission> getAllNavPermissionsByRole() throws ServiceNotFoundException {
-        return roleRepository.findByName(AuthService.getCurrentRoleType()).getNavPermissions();
+        return roleRepository.findByName(authService.getCurrentRoleType()).getNavPermissions();
     }
 
     public List<RoleType> getAllRole() {

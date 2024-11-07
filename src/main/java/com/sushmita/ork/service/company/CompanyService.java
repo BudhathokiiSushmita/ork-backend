@@ -22,9 +22,11 @@ public class CompanyService {
 
    private OrkUserDetailService orkUserDetailService;
 
-    public CompanyService(CompanyRepository companyRepository, OrkUserDetailService orkUserDetailService) {
+   private AuthService authService;
+    public CompanyService(CompanyRepository companyRepository, OrkUserDetailService orkUserDetailService, AuthService authService) {
         this.companyRepository = companyRepository;
         this.orkUserDetailService = orkUserDetailService;
+        this.authService = authService;
     }
 
     public Company getCompanyCreatedByCurrentUser() {
@@ -34,7 +36,7 @@ public class CompanyService {
 
     public Boolean checkIfCompanyExistsByCurrentUser() throws ServiceNotFoundException {
         // Only check if the current user is RECRUITER
-        if (AuthService.getCurrentRoleType().equals(RoleType.RECRUITER)) {
+        if (authService.getCurrentRoleType().equals(RoleType.RECRUITER)) {
             try {
                 //FRONT: go to Dashboard if it is true
                 Company company = getCompanyCreatedByCurrentUser();

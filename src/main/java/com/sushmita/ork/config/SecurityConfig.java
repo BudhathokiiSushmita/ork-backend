@@ -53,7 +53,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/companies/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/companies/**").hasRole("ADMIN")
 //                        .requestMatchers(HttpMethod.POST, "/sector/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/vacancy/**").hasRole("RECRUITER")
+//                        .requestMatchers(HttpMethod.POST, "/vacancy/**").hasRole("RECRUITER")
                         .requestMatchers(HttpMethod.POST, "/users/application/create").hasAuthority("APPLICANT_WRITE")
                         .requestMatchers(HttpMethod.POST, "/users/application/stages").hasAnyAuthority("RECRUITER", "HR", "DIRECTOR")
 

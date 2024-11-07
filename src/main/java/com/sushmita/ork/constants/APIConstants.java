@@ -10,6 +10,7 @@ public class APIConstants {
     public static final String NAV_PERMISSION_API = "/nav-permissions";
     public static final String SECTOR_API = "/sector";
     public static final String COMPANY_API = "/company";
+    public static final String VACANCY_API = "/vacancy";
 
-
+    public static final String GENERAL_API = "/general";
 }
