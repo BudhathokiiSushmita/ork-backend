@@ -93,9 +93,9 @@ Recruiter will create hr and director
 
 Recruiter
 - Login
-- will add their resp company first mandatory
+- will add their resp company first mandatory- done
 - will create HR and director user
-- Posts vacancy based on area
+- Posts vacancy based on area - done
 * - Forwards to HR of the company
 *
 
