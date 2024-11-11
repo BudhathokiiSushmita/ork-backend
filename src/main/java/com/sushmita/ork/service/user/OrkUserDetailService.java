@@ -6,6 +6,7 @@ import com.sushmita.ork.dtos.UserDto;
 import com.sushmita.ork.entity.OrkUser;
 import com.sushmita.ork.entity.Role;
 import com.sushmita.ork.enums.RoleType;
+import com.sushmita.ork.mapper.RegisterMapper;
 import com.sushmita.ork.mapper.UserMapper;
 import com.sushmita.ork.service.role.RoleService;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,12 +45,18 @@ public class OrkUserDetailService implements UserDetailsService {
         return new User(user.getUsername(), user.getPassword(), mapRolesToAuthorities(user.getRole()));
     }
 
-    public OrkUser register(RegisterDto registerDto) {
-//        CustomUser user = new CustomUser();
-//        user.setUsername(registerDto.getUsername());
-//        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+    public void register(RegisterDto registerDto, String password) {
+        OrkUser orkUser;
+        registerDto.setActualRole(roleService.getByRoleName(RoleType.APPLICANT));
 
-        return null;
+        try {
+            orkUser = RegisterMapper.INSTANCE.registerDtoToUser(registerDto);
+        } catch (Exception e) {
+            throw new ServiceConfigurationError("Mapping failed");
+        }
+
+        orkUser.setPassword(password);
+        userRepository.save(orkUser);
     }
 
     private Collection<GrantedAuthority> mapRolesToAuthorities(Role role) {

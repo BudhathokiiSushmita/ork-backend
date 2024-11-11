@@ -2,6 +2,7 @@ package com.sushmita.ork.controller;
 
 import com.sushmita.ork.base.CustomResponse;
 import com.sushmita.ork.dtos.AuthResponseDto;
+import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.dtos.UserDto;
 import com.sushmita.ork.dtos.UserRequestDto;
 import com.sushmita.ork.jwtConfig.JwtGenerator;
@@ -61,23 +62,15 @@ public class UserController {
         }
     }
 
-//    @PostMapping("/register")
-//    public ResponseEntity<?> register(@RequestBody RegisterDto registerDto) {
-//        try{
-//            OrkUser user = new OrkUser();
-//            user.setUsername(registerDto.getUsername());
-//            user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
-//
-//            Role role = roleRepository.findByName(RoleType.ADMIN);
-//
-//            user.setRole(role);
-//
-//            userRepository.save(user);
-//            return CustomResponse.getSuccessResponse("Successfully registered", null);
-//        } catch (Exception e) {
-//            return CustomResponse.getErrorResponse(e.getMessage(), "", HttpStatus.BAD_REQUEST);
-//        }
-//    }
+    @PostMapping("/register")
+    public ResponseEntity<?> registerApplicant(@RequestBody RegisterDto registerDto) {
+        try{
+            orkUserDetailService.register(registerDto, passwordEncoder.encode(registerDto.getPassword()));
+            return CustomResponse.getSuccessResponse("Successfully registered", null);
+        } catch (Exception e) {
+            return CustomResponse.getErrorResponse(e.getMessage(), "", HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @PostMapping("/save")
     public ResponseEntity<?> createUser(@RequestBody UserDto userDto) {

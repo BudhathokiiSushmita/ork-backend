@@ -101,3 +101,12 @@ Recruiter
 
 If no companies have been created by that user, open company form
 create company, 
+
+
+TODOS
+- On user creation form, Admin has to see only RECRUITER, and recruiter has to see HR & Director only
+- Filter for user table for admin to be able to view user created by them or other
+- Token expiration
+- Highlight the current nav 
+- username in nav bar
+- photos of sector
