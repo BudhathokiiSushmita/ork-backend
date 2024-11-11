@@ -25,18 +25,11 @@ public enum RoleType {
            ActionPermission.DIRECTOR_READ,
            ActionPermission.APPLICANT_READ
    )),
-
-   RECRUITER(Set.of(
-           ActionPermission.RECRUITER_READ,
-           ActionPermission.RECRUITER_WRITE,
-           ActionPermission.RECRUITER_DELETE,
-           ActionPermission.RECRUITER_UPDATE
-   )),
-   HR(Set.of(
-           ActionPermission.HR_READ,
-           ActionPermission.HR_WRITE,
-           ActionPermission.HR_DELETE,
-           ActionPermission.HR_UPDATE
+   APPLICANT(Set.of(
+           ActionPermission.APPLICANT_READ,
+           ActionPermission.APPLICANT_WRITE,
+           ActionPermission.APPLICANT_DELETE,
+           ActionPermission.APPLICANT_UPDATE
    )),
    DIRECTOR(Set.of(
            ActionPermission.DIRECTOR_READ,
@@ -44,11 +37,17 @@ public enum RoleType {
            ActionPermission.DIRECTOR_DELETE,
            ActionPermission.DIRECTOR_UPDATE
    )),
-   APPLICANT(Set.of(
-           ActionPermission.APPLICANT_READ,
-           ActionPermission.APPLICANT_WRITE,
-           ActionPermission.APPLICANT_DELETE,
-           ActionPermission.APPLICANT_UPDATE
+   HR(Set.of(
+           ActionPermission.HR_READ,
+           ActionPermission.HR_WRITE,
+           ActionPermission.HR_DELETE,
+           ActionPermission.HR_UPDATE
+   )),
+   RECRUITER(Set.of(
+           ActionPermission.RECRUITER_READ,
+           ActionPermission.RECRUITER_WRITE,
+           ActionPermission.RECRUITER_DELETE,
+           ActionPermission.RECRUITER_UPDATE
    ));
 
    @Getter
