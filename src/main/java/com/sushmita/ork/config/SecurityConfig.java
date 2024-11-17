@@ -61,6 +61,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST,"/users").permitAll()
                         .requestMatchers(HttpMethod.POST,"/users/register").permitAll()
 
+                                .requestMatchers(HttpMethod.GET,"/sector/list").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/vacancy/{id}").permitAll()
+
+
                         //role
 ////                        .requestMatchers(HttpMethod.GET, "/roles/all").permitAll()
 //

@@ -1,6 +1,7 @@
 package com.sushmita.ork.service.sector;
 
 import com.sushmita.ork.entity.Sector;
+import com.sushmita.ork.entity.Vacancy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,6 @@ import java.util.List;
 public class SectorService {
 
     private final SectorRepository sectorRepository;
-
 
     @Autowired
     public SectorService(SectorRepository sectorRepository) {

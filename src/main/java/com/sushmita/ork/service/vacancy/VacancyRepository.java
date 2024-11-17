@@ -14,4 +14,6 @@ import java.util.List;
 public interface VacancyRepository extends JpaRepository<Vacancy, Long> {
 
     List<Vacancy> getVacanciesByCreatedBy(Long createdBy);
+
+    List<Vacancy> getVacanciesBySectorId(Long sectorId);
 }

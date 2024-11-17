@@ -45,4 +45,8 @@ public class VacancyService {
             return vacancyRepository.getVacanciesByCreatedBy(authService.getCurrentUserId().get());
         }
     }
+
+    public List<Vacancy> getAllVacanciesBySectorId(Long sectorId){
+            return vacancyRepository.getVacanciesBySectorId(sectorId);
+    }
 }

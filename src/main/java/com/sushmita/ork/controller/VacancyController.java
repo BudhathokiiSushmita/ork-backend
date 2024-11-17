@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.sushmita.ork.constants.APIConstants.VACANCY_API;
 
 /**
@@ -40,6 +42,16 @@ public class VacancyController {
         } catch (Exception e) {
             System.out.println("exception" + e);
             return CustomResponse.getErrorResponse("Cannot get vacancies", "", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getAllVacanciesId(@PathVariable("id") Long id) {
+        try {
+            List<Vacancy> vacancyList = vacancyService.getAllVacanciesBySectorId(id);
+            return CustomResponse.getSuccessResponse("Fetched successfully", vacancyList);
+        } catch (Exception e) {
+            return CustomResponse.getErrorResponse(e.getMessage(), "", HttpStatus.BAD_REQUEST);
         }
     }
 }
