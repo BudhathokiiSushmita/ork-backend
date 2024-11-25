@@ -110,3 +110,5 @@ TODOS
 - Highlight the current nav 
 - username in nav bar
 - photos of sector
+- Admin - recruiter from- role should be disabled to choose
+- Recruiter - vacancy form - if vacancy is unpaid - make salary range disabled
