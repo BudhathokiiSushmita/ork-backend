@@ -27,7 +27,7 @@ public class Application extends BaseEntity   {
     @OneToOne
     private AppStage recentStage;
 
-    //these needs to be file
+    //these needs to be as file
     private String resume;
     private String coverLetter;
 

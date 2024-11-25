@@ -23,6 +23,8 @@ public class Vacancy extends BaseEntity {
    private String title;
    private VacancyType vacancyType;
    private Long positionNumber;
+
+   @Column(columnDefinition = "LONGTEXT")
    private String description;
 
    @Column(columnDefinition = "LONGTEXT")
