@@ -29,12 +29,11 @@ public class OrkUser extends BaseEntity {
 
     private String contactNumber;
 
-    //for applicant user ONLY
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Application> applications;
-
-
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
+
+    //ApplicationUserInfo
+    private Long userInfoId;
+
 }
 

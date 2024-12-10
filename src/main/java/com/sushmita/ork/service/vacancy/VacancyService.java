@@ -49,4 +49,8 @@ public class VacancyService {
     public List<Vacancy> getAllVacanciesBySectorId(Long sectorId){
             return vacancyRepository.getVacanciesBySectorId(sectorId);
     }
+
+    public Vacancy getVacancyById(Long id) {
+        return vacancyRepository.findById(id).orElseThrow(() -> new NullPointerException("Couldn't find vacancy"));
+    }
 }
