@@ -3,6 +3,7 @@ package com.sushmita.ork.entity;
 import com.sushmita.ork.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Application extends BaseEntity   {
 
     @OneToOne
@@ -24,11 +26,26 @@ public class Application extends BaseEntity   {
 
     @OneToMany
     private Set<AppStage> oldStages;
+
     @OneToOne
     private AppStage recentStage;
 
-    //these needs to be as file
+    //these needs to be as file (docs)
     private String resume;
     private String coverLetter;
 
+    //questionnaire
+    @Column(columnDefinition = "LONGTEXT")
+    private String professionChoice;
+
+    @Column(columnDefinition = "LONGTEXT")
+    private String companyChoice;
+
+    @Column(columnDefinition = "LONGTEXT")
+    private String uniqueQualities;
+
+    private Long userId;
+
+    @OneToOne
+    private ApplicationUserInfo applicationUserInfoId;
 }

@@ -28,10 +28,10 @@ public class Vacancy extends BaseEntity {
    private String description;
 
    @Column(columnDefinition = "LONGTEXT")
-   private String qualification; // TODO using textarea for now, update this as form array in next version
+   private String qualification;
 
    @Column(columnDefinition = "LONGTEXT")
-   private String requirement; // TODO using textarea for now, update this as form array in next version
+   private String requirement;
 
    private Date startDate;
    private Date deadline;
