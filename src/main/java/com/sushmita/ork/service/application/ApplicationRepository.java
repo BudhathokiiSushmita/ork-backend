@@ -14,4 +14,5 @@ import java.util.List;
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
 
     List<Application> findAllByUserId(Long id);
+    List<Application> findAllByVacancyCreatedBy(Long id);
 }
