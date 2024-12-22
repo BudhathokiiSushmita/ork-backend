@@ -1,6 +1,7 @@
 package com.sushmita.ork.entity;
 
 import com.sushmita.ork.base.BaseEntity;
+import com.sushmita.ork.enums.StageStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,6 +46,8 @@ public class Application extends BaseEntity   {
     private String uniqueQualities;
 
     private Long userId;
+
+    private StageStatus stageStatus;
 
     @ManyToOne
     private ApplicationUserInfo applicationUserInfoId;

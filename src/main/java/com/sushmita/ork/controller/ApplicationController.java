@@ -2,6 +2,7 @@ package com.sushmita.ork.controller;
 
 import com.sushmita.ork.base.CustomResponse;
 import com.sushmita.ork.constants.APIConstants;
+import com.sushmita.ork.dtos.ApplicationActionDto;
 import com.sushmita.ork.dtos.ApplicationRequestDto;
 import com.sushmita.ork.service.application.ApplicationService;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,15 @@ public class ApplicationController {
     public ResponseEntity<?> getAllByUser() {
         try {
             return CustomResponse.getSuccessResponse("Successfully saved", applicationService.getAll());
+        } catch (Exception e) {
+            return CustomResponse.getErrorResponse("Couldn't save application", "", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/action")
+    public ResponseEntity<?> action(@RequestBody ApplicationActionDto applicationActionDto) {
+        try {
+            return CustomResponse.getSuccessResponse("Successfully saved", applicationService.performAction(applicationActionDto.getApplicationId(), applicationActionDto.getAction()));
         } catch (Exception e) {
             return CustomResponse.getErrorResponse("Couldn't save application", "", HttpStatus.BAD_REQUEST);
         }

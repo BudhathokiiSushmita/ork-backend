@@ -1,7 +1,7 @@
 package com.sushmita.ork.entity;
 
 import com.sushmita.ork.base.BaseEntity;
-import com.sushmita.ork.enums.StageStatus;
+import com.sushmita.ork.enums.Action;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AppStage extends BaseEntity   {
 
-    private StageStatus stageStatus;
+    private Action action;
 
     @ManyToOne
     private OrkUser fromUser;

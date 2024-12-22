@@ -37,4 +37,9 @@ public class AuthService {
         OrkUser user = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
         return Optional.of(user.getId());
     }
+
+    public Optional<OrkUser> getCurrentUser() {
+        OrkUser user = userRepository.findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        return Optional.of(user);
+    }
 }
