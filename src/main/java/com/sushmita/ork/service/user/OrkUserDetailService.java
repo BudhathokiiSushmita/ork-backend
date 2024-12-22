@@ -98,4 +98,8 @@ public class OrkUserDetailService implements UserDetailsService {
     public OrkUser getUserById(Long id) {
         return userRepository.findById(id).get();
     }
+
+    public OrkUser getSpecificUserBySpecificRole(RoleType roleType, Long recruiterId) {
+        return userRepository.getOrkUserByRole_NameAndCreatedBy(roleType, recruiterId);
+    }
 }

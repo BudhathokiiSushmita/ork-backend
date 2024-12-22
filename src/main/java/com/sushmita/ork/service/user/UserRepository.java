@@ -1,6 +1,7 @@
 package com.sushmita.ork.service.user;
 
 import com.sushmita.ork.entity.OrkUser;
+import com.sushmita.ork.enums.RoleType;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,4 +23,6 @@ public interface UserRepository extends JpaRepository<OrkUser, Long>{
     Boolean existsByUsername(String username);
 
     List<OrkUser> getAllByCreatedBy(Long id);
+
+    OrkUser getOrkUserByRole_NameAndCreatedBy(RoleType roleName, Long recruiterId);
 }

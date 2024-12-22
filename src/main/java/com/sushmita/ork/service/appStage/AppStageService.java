@@ -2,7 +2,7 @@ package com.sushmita.ork.service.appStage;
 
 import com.sushmita.ork.entity.AppStage;
 import com.sushmita.ork.entity.OrkUser;
-import com.sushmita.ork.enums.StageStatus;
+import com.sushmita.ork.enums.Action;
 import com.sushmita.ork.service.user.OrkUserDetailService;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class AppStageService {
          OrkUser recruiter = orkUserDetailService.getUserById(recruiterId);
          OrkUser applicant = orkUserDetailService.getUserById(applicantId);
          AppStage appStage = AppStage.builder()
-                 .stageStatus(StageStatus.SUBMITTED)
+                 .action(Action.CREATE)
                  .fromUser(applicant)
                  .toUser(recruiter)
                  .build();
@@ -36,4 +36,14 @@ public class AppStageService {
          throw new RuntimeException("Couldn't save stage");
       }
    }
+
+    public AppStage saveStage(AppStage appStage) {
+        try {
+            return appStageRepository.save(appStage);
+        } catch (Exception e) {
+            throw new RuntimeException("Couldn't save stage");
+        }
+    }
+
+
 }
