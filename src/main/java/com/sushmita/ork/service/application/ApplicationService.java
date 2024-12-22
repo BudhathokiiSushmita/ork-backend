@@ -9,6 +9,7 @@ import com.sushmita.ork.service.vacancy.VacancyService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Sushmita Budhathoki on 2024-12-10
@@ -60,5 +61,10 @@ public class ApplicationService {
         } catch (Exception e) {
             throw new RuntimeException("Couldn't save Application");
         }
+    }
+
+    public List<Application> getAll() {
+        Long applicantId = authService.getCurrentUserId().orElseThrow(() -> new NullPointerException("Error"));
+        return applicationRepository.findAllByUserId(applicantId);
     }
 }
