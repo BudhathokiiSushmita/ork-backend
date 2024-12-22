@@ -20,7 +20,7 @@ import java.util.Set;
 @Builder
 public class Application extends BaseEntity   {
 
-    @OneToOne
+    @ManyToOne
     private Vacancy vacancy;
     private Date submittedDate;
 
@@ -46,6 +46,6 @@ public class Application extends BaseEntity   {
 
     private Long userId;
 
-    @OneToOne
+    @ManyToOne
     private ApplicationUserInfo applicationUserInfoId;
 }

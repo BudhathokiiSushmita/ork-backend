@@ -108,7 +108,7 @@ TODOS
 - Filter for user table for admin to be able to view user created by them or other
 - Token expiration
 - Highlight the current nav 
-- username in nav bar
+- username in nav bar done
 - photos of sector
 - Admin - recruiter from- role should be disabled to choose
 - Recruiter - vacancy form - if vacancy is unpaid - make salary range disabled

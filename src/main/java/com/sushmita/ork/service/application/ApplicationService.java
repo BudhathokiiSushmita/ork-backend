@@ -3,11 +3,13 @@ package com.sushmita.ork.service.application;
 import com.sushmita.ork.base.AuthService;
 import com.sushmita.ork.dtos.ApplicationRequestDto;
 import com.sushmita.ork.entity.*;
+import com.sushmita.ork.enums.RoleType;
 import com.sushmita.ork.service.appStage.AppStageService;
 import com.sushmita.ork.service.applicationInfo.ApplicationInfoService;
 import com.sushmita.ork.service.vacancy.VacancyService;
 import org.springframework.stereotype.Service;
 
+import javax.management.ServiceNotFoundException;
 import java.util.Date;
 import java.util.List;
 
@@ -63,8 +65,27 @@ public class ApplicationService {
         }
     }
 
-    public List<Application> getAll() {
-        Long applicantId = authService.getCurrentUserId().orElseThrow(() -> new NullPointerException("Error"));
-        return applicationRepository.findAllByUserId(applicantId);
+    public List<Application> getAll() throws ServiceNotFoundException {
+
+//        Applicant -> created by
+//        Recruiter -> vacancy created
+//        HR/Director -> to User
+
+        RoleType roleType = authService.getCurrentRoleType();
+        Long currentId = authService.getCurrentUserId().orElseThrow(() -> new NullPointerException("Error"));
+
+        switch (roleType) {
+            case RoleType.APPLICANT :
+                return applicationRepository.findAllByUserId(currentId);
+
+            case RoleType.RECRUITER :
+                return applicationRepository.findAllByVacancyCreatedBy(currentId);
+
+            default:
+//            case RoleType.HR :
+//            case RoleType.DIRECTOR :
+                return applicationRepository.findAllByUserId(currentId);
+
+        }
     }
 }
