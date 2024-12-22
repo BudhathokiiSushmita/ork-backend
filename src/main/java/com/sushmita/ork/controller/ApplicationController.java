@@ -6,10 +6,7 @@ import com.sushmita.ork.dtos.ApplicationRequestDto;
 import com.sushmita.ork.service.application.ApplicationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Sushmita Budhathoki on 2024-12-10
@@ -29,6 +26,15 @@ public class ApplicationController {
     public ResponseEntity<?> saveApplication(@RequestBody ApplicationRequestDto applicationRequestDto) {
         try {
             return CustomResponse.getSuccessResponse("Successfully saved", applicationService.saveApplication(applicationRequestDto));
+        } catch (Exception e) {
+            return CustomResponse.getErrorResponse("Couldn't save application", "", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<?> getAllByUser() {
+        try {
+            return CustomResponse.getSuccessResponse("Successfully saved", applicationService.getAll());
         } catch (Exception e) {
             return CustomResponse.getErrorResponse("Couldn't save application", "", HttpStatus.BAD_REQUEST);
         }
