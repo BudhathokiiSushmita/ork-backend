@@ -3,7 +3,7 @@ package com.sushmita.ork.jwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import io.jsonwebtoken.SignatureException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -43,10 +43,18 @@ public class JwtGenerator {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token);
-            return true;
+            Claims claims = Jwts.parser()
+                    .setSigningKey(JWT_SECRET)
+                    .parseClaimsJws(token)
+                    .getBody();
+
+            // Token is valid only if the expiration date is after the current date
+            return !claims.getExpiration().before(new Date());
+        } catch (SignatureException e) {
+            System.out.println("Invalid JWT signature.");
         } catch (Exception e) {
-            throw new AuthenticationCredentialsNotFoundException("JWT was expired or invalid");
+            System.out.println("Invalid token.");
         }
+        return false;
     }
 }
