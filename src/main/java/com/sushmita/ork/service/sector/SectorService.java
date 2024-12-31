@@ -1,10 +1,14 @@
 package com.sushmita.ork.service.sector;
 
+import com.sushmita.ork.constants.OrkConstants;
+import com.sushmita.ork.entity.OrkFile;
 import com.sushmita.ork.entity.Sector;
-import com.sushmita.ork.entity.Vacancy;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sushmita.ork.enums.Image;
+import com.sushmita.ork.service.orkImage.OrkFileService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,19 +19,27 @@ import java.util.List;
 public class SectorService {
 
     private final SectorRepository sectorRepository;
+    private final OrkFileService orkFileService;
 
-    @Autowired
-    public SectorService(SectorRepository sectorRepository) {
+    public SectorService(SectorRepository sectorRepository, OrkFileService orkFileService) {
         this.sectorRepository = sectorRepository;
+        this.orkFileService = orkFileService;
     }
 
-    public Sector save(String sectorName) {
+    public Sector save(MultipartFile file, String sectorName) throws IOException {
         if(sectorName == null) throw new NullPointerException("No data given");
 
-        return sectorRepository.save(Sector.builder().name(sectorName).build());
+
+        //save sector image
+        String uniqueKey = sectorName + "-";
+        String folder = OrkConstants.FOLDER_PATH + Image.SECTOR + "/" + uniqueKey;
+        OrkFile orkFile = orkFileService.uploadFile(file, Image.SECTOR, folder, uniqueKey);
+
+        //save sector
+        return sectorRepository.save(Sector.builder().name(sectorName).orkFile(orkFile).build());
     }
 
     public List<Sector> getAll() {
-        return sectorRepository.findAll();
+        return sectorRepository.findAll().stream().peek(f -> f.setFile(orkFileService.fetchImage(f.getOrkFile().getName()))).toList();
     }
 }
