@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -28,9 +29,10 @@ public class SectorController {
     }
 
     @PostMapping()
-   public ResponseEntity<?> saveSector(@RequestBody String sectorName) {
+   public ResponseEntity<?> saveSector(@RequestParam("orkFile") MultipartFile orkFile,
+                                       @RequestParam("name") String name) {
        try {
-          Sector sector = sectorService.save(sectorName);
+          Sector sector = sectorService.save(orkFile, name);
           return CustomResponse.getSuccessResponse("Saved successfully", sector);
        } catch (Exception e) {
           return CustomResponse.getErrorResponse(e.getMessage(), "", HttpStatus.BAD_REQUEST);
