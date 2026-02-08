@@ -54,7 +54,18 @@ public class UserController {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtGenerator.generateToken(authentication);
-            return CustomResponse.getSuccessResponse("successfully logged in", new AuthResponseDto(token, user.getUsername(), authentication.getAuthorities().stream().toList().getFirst().toString()));
+            return CustomResponse.getSuccessResponse(
+                    "successfully logged in",
+                    new AuthResponseDto(
+                            token,
+                            user.getUsername(),
+                            authentication.getAuthorities()
+                                    .stream()
+                                    .toList()
+                                    .get(0)
+                                    .getAuthority()
+                    )
+            );
         } catch (BadCredentialsException | UsernameNotFoundException e) {
             return CustomResponse.getErrorResponse("Invalid username or password", null, HttpStatus.UNAUTHORIZED);
         } catch (Exception e) {

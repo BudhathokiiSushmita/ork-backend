@@ -81,10 +81,10 @@ public class ApplicationService {
         Long currentId = authService.getCurrentUserId().orElseThrow(() -> new NullPointerException("Error"));
 
         switch (roleType) {
-            case RoleType.APPLICANT:
+            case APPLICANT:
                 return applicationRepository.findAllByUserId(currentId);
 
-            case RoleType.RECRUITER:
+            case RECRUITER:
                 return applicationRepository.findAllByVacancyCreatedBy(currentId);
 
             default:

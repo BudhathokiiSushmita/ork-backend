@@ -1,7 +1,5 @@
 package com.sushmita.ork.enums;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.List;
@@ -10,11 +8,9 @@ import java.util.Set;
 /**
  * @author Sushmita Budhathoki on 2024-08-23
  */
-
-@RequiredArgsConstructor
 public enum RoleType {
 
-   //linking RoleType and ActionPermissions
+   // Linking RoleType and ActionPermissions
    ADMIN(Set.of(
            ActionPermission.ADMIN_READ,
            ActionPermission.ADMIN_WRITE,
@@ -50,16 +46,26 @@ public enum RoleType {
            ActionPermission.RECRUITER_UPDATE
    ));
 
-   @Getter
    private final Set<ActionPermission> actionPermissions;
 
+   // Explicit constructor for enum
+   RoleType(Set<ActionPermission> actionPermissions) {
+      this.actionPermissions = actionPermissions;
+   }
+
+   // Getter for actionPermissions
+   public Set<ActionPermission> getActionPermissions() {
+      return actionPermissions;
+   }
+
+   // Convert to Spring Security authorities
    public List<SimpleGrantedAuthority> getAuthorities() {
-      var authorities = getActionPermissions()
+      List<SimpleGrantedAuthority> authorities = getActionPermissions()
               .stream()
               .map(f -> new SimpleGrantedAuthority(f.name()))
               .toList();
 
-      //this adds action permission of current chosen role
+      // Add role prefix for Spring Security
       authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
       return authorities;
    }

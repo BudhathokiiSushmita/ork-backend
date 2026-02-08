@@ -1,5 +1,6 @@
 package com.sushmita.ork.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -9,7 +10,7 @@ import lombok.RequiredArgsConstructor;
  * These are the actions that can be performed by roles.
  */
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 public enum ActionPermission {
 
     ADMIN_READ("admin:read"),

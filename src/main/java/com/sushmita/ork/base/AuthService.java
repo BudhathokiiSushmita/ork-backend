@@ -26,8 +26,14 @@ public class AuthService {
 
     public RoleType getCurrentRoleType() throws ServiceNotFoundException {
         try {
-            List<? extends GrantedAuthority> lists = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().toList();
-            return RoleType.valueOf(lists.getFirst().toString());
+            List<? extends GrantedAuthority> lists =
+                    SecurityContextHolder.getContext()
+                            .getAuthentication()
+                            .getAuthorities()
+                            .stream()
+                            .toList();
+
+            return RoleType.valueOf(lists.get(0).getAuthority());
         } catch (Exception e) {
             throw new ServiceNotFoundException("Not authorized");
         }
