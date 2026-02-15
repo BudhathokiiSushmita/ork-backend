@@ -23,6 +23,8 @@ public class Application extends BaseEntity   {
 
     @ManyToOne
     private Vacancy vacancy;
+
+    @Column(columnDefinition = "DATETIME")
     private Date submittedDate;
 
     @OneToMany

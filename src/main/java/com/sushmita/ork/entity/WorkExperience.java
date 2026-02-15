@@ -25,6 +25,9 @@ public class WorkExperience extends BaseEntity {
     @Column(columnDefinition = "LONGTEXT")
     private String responsibilities;
 
+    @Column(columnDefinition = "DATETIME")
     private Date startDate;
+
+    @Column(columnDefinition = "DATETIME")
     private Date endDate;
 }

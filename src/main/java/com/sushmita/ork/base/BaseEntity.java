@@ -24,11 +24,13 @@ public class BaseEntity implements Serializable {
    @CreatedDate
    @Basic(optional = false)
    @Temporal(TemporalType.TIMESTAMP)
+   @Column(columnDefinition = "DATETIME")
    private Date created = new Date();
 
    @LastModifiedDate
    @Basic
    @Temporal(TemporalType.TIMESTAMP)
+   @Column(columnDefinition = "DATETIME")
    private Date lastModified;
 
    @CreatedBy

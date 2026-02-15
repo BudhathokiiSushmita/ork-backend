@@ -33,9 +33,15 @@ public class Vacancy extends BaseEntity {
    @Column(columnDefinition = "LONGTEXT")
    private String requirement;
 
+   @Column(columnDefinition = "DATETIME")
    private Date startDate;
+
+   @Column(columnDefinition = "DATETIME")
    private Date deadline;
+
+   @Column(columnDefinition = "DATETIME")
    private Date createdAt;
+
    private String salaryRange;
    private String applicationProcedure;
    private String documentRequirement;
