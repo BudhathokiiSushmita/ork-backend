@@ -83,7 +83,9 @@ public class OrkUserDetailService implements UserDetailsService {
         RoleType currentRoleType = authService.getCurrentRoleType();
         List<OrkUser> userList;
         if(currentRoleType == RoleType.ADMIN) {
-           userList = userRepository.findAll().stream().toList();
+           userList = userRepository.findAll().stream()
+                   .filter(user -> user.getRole().getName() == RoleType.HR || user.getRole().getName() == RoleType.DIRECTOR)
+                   .toList(); //not all user because of privacy of other user
         } else {
             userList = userRepository.getAllByCreatedBy(authService.getCurrentUserId().get());
         }
