@@ -5,6 +5,7 @@ import com.sushmita.ork.entity.NavPermission;
 import com.sushmita.ork.entity.Role;
 import com.sushmita.ork.enums.RoleType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.management.ServiceNotFoundException;
@@ -40,6 +41,20 @@ public class RoleService {
 
     public List<RoleType> getAllRole() {
         List<Role> roles =  roleRepository.findAll();
-        return roles.stream().map(Role::getName).collect(Collectors.toList());
+        //switch case for admin - recruiter, r - hr and director, user - only user
+        try {
+            return switch(authService.getCurrentRoleType()) {
+                case ADMIN -> roles.stream().map(Role::getName)
+                            .filter(f -> f.equals(RoleType.RECRUITER)).collect(Collectors.toList());
+
+                case RECRUITER -> roles.stream().map(Role::getName)
+                            .filter(f -> f.equals(RoleType.HR) || f.equals(RoleType.DIRECTOR))
+                            .collect(Collectors.toList());
+
+                default -> roles.stream().map(Role::getName).collect(Collectors.toList());
+            };
+        } catch (Exception e) {
+            throw new AuthenticationCredentialsNotFoundException("Invalid Request for creation");
+        }
     }
 }
