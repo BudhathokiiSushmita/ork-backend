@@ -104,11 +104,13 @@ create company,
 
 
 TODOS
-- On user creation form, Admin has to see only RECRUITER, and recruiter has to see HR & Director only
-- Filter for user table for admin to be able to view user created by them or other
-- Token expiration
-- Highlight the current nav 
-- username in nav bar done
-- photos of sector
-- Admin - recruiter from- role should be disabled to choose
-- Recruiter - vacancy form - if vacancy is unpaid - make salary range disabled
+- On user creation form, Admin has to see only RECRUITER, and recruiter has to see HR & Director only **done**
+- Filter for user table for admin to be able to view user created by them or other **done**
+- Highlight the current nav **done**
+- username in nav bar **done**
+- photos of sector **done**
+- Admin - recruiter form- role should be disabled to choose **done, no need of this because now only recruiter shows**
+- Recruiter - vacancy form - if vacancy is unpaid - make salary range disabled **done**
+- when session is timed out, name and logout sign is still there **done**
+- Token expiration **done**
+- security redesign after completing the project by making new branch

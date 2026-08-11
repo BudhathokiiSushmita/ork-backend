@@ -5,6 +5,7 @@ package com.sushmita.ork.constants;
  */
 public class SECURITYConstants {
 
-    public static final long JWT_EXPIRATION = 70000;
+//    public static final long JWT_EXPIRATION = 70000;
+    public static final long JWT_EXPIRATION = 3600000;
     public static final String JWT_SECRET = "orksecret";
 }
