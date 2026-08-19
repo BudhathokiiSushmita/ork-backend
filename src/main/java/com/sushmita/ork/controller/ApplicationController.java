@@ -46,7 +46,7 @@ public class ApplicationController {
         try {
             return CustomResponse.getSuccessResponse("Successfully saved", applicationService.performAction(applicationActionDto.getApplicationId(), applicationActionDto.getAction()));
         } catch (Exception e) {
-            return CustomResponse.getErrorResponse("Couldn't save application", "", HttpStatus.BAD_REQUEST);
+            return CustomResponse.getErrorResponse("Couldn't perform the action.", "", HttpStatus.BAD_REQUEST);
         }
     }
 }

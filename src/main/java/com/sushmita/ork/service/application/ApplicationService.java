@@ -101,10 +101,10 @@ public class ApplicationService {
 
         //check application
         if (application.getStageStatus() == StageStatus.APPROVE) {
-            throw new ServiceNotFoundException("Cannot perform this action");
+            throw new ServiceNotFoundException("Cannot perform this action. File is already approved.");
         }
 
-        OrkUser currentUser = authService.getCurrentUser().orElseThrow(() -> new NullPointerException("Invalid"));
+        OrkUser currentUser = authService.getCurrentUser().orElseThrow(() -> new NullPointerException("Cannot move further, you are not authorised for this"));
         RoleType currentRoleType = currentUser.getRole().getName();
         Set<AppStage> oldStagesSet = application.getOldStages();
         List<AppStage> oldStages = new ArrayList<>(oldStagesSet);

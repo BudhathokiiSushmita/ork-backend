@@ -114,3 +114,41 @@ TODOS
 - when session is timed out, name and logout sign is still there **done**
 - Token expiration **done**
 - security redesign after completing the project by making new branch
+
+
+BUSINESS PANEL
+- admin > form > edit and delete user (delete if there is another recruiter or they have no connection with any files or customer)
+- admin > nav > no need of applicant and application on nav bar
+
+- recruiter > look > recruiter can be associated with only one company so for them when clicked on company, view shouldnt be tabular
+  instead should have good view and editable without affecting other things
+- recruiter > form > sector should be added by admin only, recruiter should have a form to request for adding of sector and uniqueness 
+  will be checked and added.
+- recruiter > form > vacancy should be editable or not, not sure
+- recruiter > list > applicant those who have applied to the jobs posted by this recruiter should only be seen, can see the details 
+  of applicant in a modal and job application history with the job #id, status
+- recruiter > form > user edit
+- recruiter > application should be filtered with their status
+- recruiter > self > user data update
+- recruiter > application list > status view is not good
+- recruiter > form > recruiter should be able to create only one hr and one director. We can change this for business logic 
+  but for now, only one.
+- recruiter > application list > after forwarding the application it should reload the page and update the application list itself.
+
+- hr > application list or any list > if there are no data for the list, it should show some informative message saying its empty.
+- hr > view > there is no way to view the application at all
+- hr > user > nav bar > no need of user but applicant who has applied to their company so far with their job history as stated above.
+
+- director > application list > if it is approved then no action button should be there and also summary is needed instead of
+  view maybe with some comments they passed.
+
+CLIENT PANEL
+- header > application on header should be seen by them only
+- wishlist > need to login and see wishlist on header along side application > tbd
+- application > should be able to view the application
+- jobs > if already applied, "apply now" => "applied"
+- application apply > validation while applying job ofcourse, and maybe validation and data patch in back and forth needed
+
+
+After this, try to deploy it and then security remodel.
+
