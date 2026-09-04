@@ -104,36 +104,37 @@ create company,
 
 
 TODOS
-- On user creation form, Admin has to see only RECRUITER, and recruiter has to see HR & Director only **done**
-- Filter for user table for admin to be able to view user created by them or other **done**
-- Highlight the current nav **done**
-- username in nav bar **done**
-- photos of sector **done**
-- Admin - recruiter form- role should be disabled to choose **done, no need of this because now only recruiter shows**
-- Recruiter - vacancy form - if vacancy is unpaid - make salary range disabled **done**
-- when session is timed out, name and logout sign is still there **done**
-- Token expiration **done**
+~~- On user creation form, Admin has to see only RECRUITER, and recruiter has to see HR & Director only **done**~~
+~~- Filter for user table for admin to be able to view user created by them or other **done**~~
+~~- Highlight the current nav **done**~~
+~~- username in nav bar **done**~~
+~~- photos of sector **done**~~
+~~- Admin - recruiter form- role should be disabled to choose **done, no need of this because now only recruiter shows**~~
+~~- Recruiter - vacancy form - if vacancy is unpaid - make salary range disabled **done**~~
+~~- when session is timed out, name and logout sign is still there **done**~~
+~~- Token expiration **done**~~
 - security redesign after completing the project by making new branch
+- Add TRANSACTIONAL
 
 
 BUSINESS PANEL
 - admin > form > edit and delete user (delete if there is another recruiter or they have no connection with any files or customer)
-- admin > nav > no need of applicant and application on nav bar
+- admin > nav > no need of applicant and application on nav bar #
 
 - recruiter > look > recruiter can be associated with only one company so for them when clicked on company, view shouldnt be tabular
-  instead should have good view and editable without affecting other things
+  instead should have good view and editable without affecting other things **EXTRA**
 - recruiter > form > sector should be added by admin only, recruiter should have a form to request for adding of sector and uniqueness 
-  will be checked and added.
+  will be checked and added. **EXTRA**
 - recruiter > form > vacancy should be editable or not, not sure
 - recruiter > list > applicant those who have applied to the jobs posted by this recruiter should only be seen, can see the details 
-  of applicant in a modal and job application history with the job #id, status
+  of applicant in a modal and job application history with the job #id, status **EXTRA**
 - recruiter > form > user edit
 - recruiter > application should be filtered with their status
 - recruiter > self > user data update
 - recruiter > application list > status view is not good
 - recruiter > form > recruiter should be able to create only one hr and one director. We can change this for business logic 
-  but for now, only one.
-- recruiter > application list > after forwarding the application it should reload the page and update the application list itself.
+  but for now, only one. #
+- recruiter > application list > after forwarding the application it should reload the page and update the application list itself. #
 
 - hr > application list or any list > if there are no data for the list, it should show some informative message saying its empty.
 - hr > view > there is no way to view the application at all
@@ -143,12 +144,27 @@ BUSINESS PANEL
   view maybe with some comments they passed.
 
 CLIENT PANEL
-- header > application on header should be seen by them only
-- wishlist > need to login and see wishlist on header along side application > tbd
-- application > should be able to view the application
-- jobs > if already applied, "apply now" => "applied"
-- application apply > validation while applying job ofcourse, and maybe validation and data patch in back and forth needed
+- header > application on header should be seen by them only #
+- wishlist > need to login and see wishlist on header alongside application > tbd
+- application > should be able to view the application #
+~~- jobs > if already applied, "apply now" => "applied"~~
+- application apply > validation while applying job of course, and maybe validation and data patch in back and forth needed
 
 
 After this, try to deploy it and then security remodel.
+
+[JPQL vs NATIVE QUERY]
+|               | **JPQL**                                      | **Native SQL**                     |
+| ------------- | --------------------------------------------- | ---------------------------------- |
+| **Purpose**   | Query **Java entities** through JPA/Hibernate | Query **database tables directly** |
+| Talks to      | Entities                                      | Tables/columns                     |
+| `nativeQuery` | `false` (default)                             | `true`                             |
+| Best for      | Normal JPA operations, won't                  | Complex or DB-specific SQL         |
+                  matter if db changes       
+| Example       | `Application`, `a.vacancy.id`                 | `application`, `vacancy_id`        |
+
+| JPQL                                                               | Native SQL                                                         |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `SELECT a.vacancy.id FROM Application a WHERE a.user.id = :userId` | `SELECT a.vacancy_id FROM application a WHERE a.user_id = :userId` |
+
 
