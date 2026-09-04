@@ -1,6 +1,7 @@
 package com.sushmita.ork.controller;
 
 import com.sushmita.ork.base.CustomResponse;
+import com.sushmita.ork.dtos.VacancyDto;
 import com.sushmita.ork.entity.Vacancy;
 import com.sushmita.ork.service.vacancy.VacancyService;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,7 @@ public class VacancyController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getAllVacanciesId(@PathVariable("id") Long id) {
         try {
-            List<Vacancy> vacancyList = vacancyService.getAllVacanciesBySectorId(id);
+            List<VacancyDto> vacancyList = vacancyService.getAllVacanciesBySectorId(id);
             return CustomResponse.getSuccessResponse("Fetched successfully", vacancyList);
         } catch (Exception e) {
             return CustomResponse.getErrorResponse(e.getMessage(), "", HttpStatus.BAD_REQUEST);
