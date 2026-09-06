@@ -119,10 +119,11 @@ TODOS
 
 BUSINESS PANEL
 - admin > form > edit and delete user (delete if there is another recruiter or they have no connection with any files or customer)
-- admin > nav > no need of applicant and application on nav bar #
+~~- admin > nav > no need of applicant and application on nav bar # .......~~
 
-- recruiter > look > recruiter can be associated with only one company so for them when clicked on company, view shouldnt be tabular
-  instead should have good view and editable without affecting other things **EXTRA**
+~~- recruiter > look > recruiter can be associated with only one company so for them when clicked on company, view shouldnt be tabular
+  instead should have good view~~
+- recruiter > company data editable without affecting other things **EXTRA** .....
 - recruiter > form > sector should be added by admin only, recruiter should have a form to request for adding of sector and uniqueness 
   will be checked and added. **EXTRA**
 - recruiter > form > vacancy should be editable or not, not sure
@@ -138,17 +139,17 @@ BUSINESS PANEL
 
 - hr > application list or any list > if there are no data for the list, it should show some informative message saying its empty.
 - hr > view > there is no way to view the application at all
-- hr > user > nav bar > no need of user but applicant who has applied to their company so far with their job history as stated above.
+- hr > user > nav bar > no need of user but applicant who has applied to their company so far with their job history as stated above. .......
 
 - director > application list > if it is approved then no action button should be there and also summary is needed instead of
   view maybe with some comments they passed.
 
 CLIENT PANEL
-- header > application on header should be seen by them only #
+~~- header > application on header should be seen by them only #~~
 - wishlist > need to login and see wishlist on header alongside application > tbd
-- application > should be able to view the application #
+~~- application > should be able to view the application #~~
 ~~- jobs > if already applied, "apply now" => "applied"~~
-- application apply > validation while applying job of course, and maybe validation and data patch in back and forth needed
+- application apply > validation while applying job of course, and maybe validation and data patch in back and forth needed _this will be at last_
 
 
 After this, try to deploy it and then security remodel.
@@ -168,3 +169,12 @@ After this, try to deploy it and then security remodel.
 | `SELECT a.vacancy.id FROM Application a WHERE a.user.id = :userId` | `SELECT a.vacancy_id FROM application a WHERE a.user_id = :userId` |
 
 
+**5th Sept**
+1. Changed role nav permission > hr can view applicant not user. When you start app, patch will run itself everytime
+   but need to remove the 3-5 one.
+
+
+**AFTER DEPLOY**
+1. Add Description and photo to add while adding company.
+2. View will have these, now its commented in frontend.
+3. Applicant should be able to see company's data too.
