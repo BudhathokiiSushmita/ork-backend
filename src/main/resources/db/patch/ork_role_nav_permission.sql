@@ -5,9 +5,7 @@ VALUES
        (1, 1),
        (1, 2),
        (1, 3),
-       (1, 5),
        (1, 6),
-       (1, 7),
 
 --        recruiter panel
         (2, 1),
@@ -19,7 +17,7 @@ VALUES
         (2, 7),
 
 --        hr panel
-       (3, 6),
+       (3, 5),
        (3, 7),
 
 --        director panel
