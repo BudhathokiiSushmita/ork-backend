@@ -66,7 +66,7 @@ public class VacancyService {
                         vacancyRepository.getVacanciesBySectorId(sectorId)
                 );
 
-        //if logged in
+        //get all the vacancies that has been applied by current user
         try {
             authService.getCurrentUserId().ifPresent(userId -> {
 

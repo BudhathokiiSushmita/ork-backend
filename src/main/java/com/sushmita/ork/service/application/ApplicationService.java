@@ -2,10 +2,12 @@ package com.sushmita.ork.service.application;
 
 import com.sushmita.ork.base.AuthService;
 import com.sushmita.ork.dtos.ApplicationRequestDto;
+import com.sushmita.ork.dtos.UserDto;
 import com.sushmita.ork.entity.*;
 import com.sushmita.ork.enums.Action;
 import com.sushmita.ork.enums.RoleType;
 import com.sushmita.ork.enums.StageStatus;
+import com.sushmita.ork.mapper.UserMapper;
 import com.sushmita.ork.service.appStage.AppStageService;
 import com.sushmita.ork.service.applicationInfo.ApplicationInfoService;
 import com.sushmita.ork.service.user.OrkUserDetailService;
@@ -194,5 +196,18 @@ public class ApplicationService {
         applicationRepository.save(application);
 
         return true;
+    }
+
+    public List<UserDto> getAllApplicantForRecruiterVacancies() {
+        List<Long> userIds = applicationRepository.getAllApplicantForRecruiterVacancies(authService.getCurrentUserId());
+        if (!userIds.isEmpty()) {
+
+            return userIds.stream()
+                    .map(userId -> UserMapper.INSTANCE.mapEntityToDto(
+                            orkUserDetailService.getUserById(userId)
+                    ))
+                    .toList();
+        }
+        return new ArrayList<>();
     }
 }

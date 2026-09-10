@@ -123,12 +123,12 @@ BUSINESS PANEL
 
 ~~- recruiter > look > recruiter can be associated with only one company so for them when clicked on company, view shouldnt be tabular
   instead should have good view~~
-- recruiter > company data editable without affecting other things **EXTRA** .....
+- recruiter > company data editable without affecting other things **EXTRA** 
 - recruiter > form > sector should be added by admin only, recruiter should have a form to request for adding of sector and uniqueness 
   will be checked and added. **EXTRA**
 - recruiter > form > vacancy should be editable or not, not sure
-- recruiter > list > applicant those who have applied to the jobs posted by this recruiter should only be seen, can see the details 
-  of applicant in a modal and job application history with the job #id, status **EXTRA**
+~~- recruiter > list > applicant those who have applied to the jobs posted by this recruiter should only be seen,~~ `~~can see the details 
+  of applicant in a modal and job application history with the job #id, status~~` **EXTRA** .......
 - recruiter > form > user edit
 - recruiter > application should be filtered with their status
 - recruiter > self > user data update
@@ -139,7 +139,7 @@ BUSINESS PANEL
 
 - hr > application list or any list > if there are no data for the list, it should show some informative message saying its empty.
 - hr > view > there is no way to view the application at all
-- hr > user > nav bar > no need of user but applicant who has applied to their company so far with their job history as stated above. .......
+- hr > user > nav bar > no need of user but applicant who has applied to their company so far with their job history as stated above.
 
 - director > application list > if it is approved then no action button should be there and also summary is needed instead of
   view maybe with some comments they passed.
@@ -178,3 +178,9 @@ After this, try to deploy it and then security remodel.
 1. Add Description and photo to add while adding company.
 2. View will have these, now its commented in frontend.
 3. Applicant should be able to see company's data too.
+
+
+
+TBC:
+Vacancy form, getting raw value is prob.
+

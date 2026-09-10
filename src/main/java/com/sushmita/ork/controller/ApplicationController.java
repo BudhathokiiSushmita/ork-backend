@@ -49,4 +49,13 @@ public class ApplicationController {
             return CustomResponse.getErrorResponse("Couldn't perform the action.", "", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/applicant-list-by-vacancy")
+    public ResponseEntity<?> getAllApplicantForRecruiterVacancies() {
+        try {
+            return CustomResponse.getSuccessResponse("Successfully saved", applicationService.getAllApplicantForRecruiterVacancies());
+        } catch (Exception e) {
+            return CustomResponse.getErrorResponse("Couldn't save application", "", HttpStatus.BAD_REQUEST);
+        }
+    }
 }

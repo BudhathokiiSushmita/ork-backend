@@ -28,4 +28,15 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
                 WHERE a.userId = :userId
             """)
     List<Long> findVacancyIdsByUserId(@Param("userId") Optional<Long> userId);
+
+    @Query("""
+        SELECT DISTINCT a.userId
+        FROM Application a
+        JOIN Vacancy v on v.id = a.vacancy.id
+        where v.createdBy = :userId
+        """)
+    List<Long> getAllApplicantForRecruiterVacancies(@Param("userId") Optional<Long> userId);
+
+
+
 }
