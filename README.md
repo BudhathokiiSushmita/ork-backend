@@ -129,7 +129,7 @@ BUSINESS PANEL
 - recruiter > form > vacancy should be editable or not, not sure
 ~~- recruiter > list > applicant those who have applied to the jobs posted by this recruiter should only be seen,~~ `~~can see the details 
   of applicant in a modal and job application history with the job #id, status~~` **EXTRA** .......
-- recruiter > form > user edit
+~~- recruiter > form > user edit~~
 - recruiter > application should be filtered with their status
 - recruiter > self > user data update
 ~~- recruiter > application list > status view is not good~~

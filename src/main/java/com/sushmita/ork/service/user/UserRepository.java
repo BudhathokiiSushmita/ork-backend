@@ -25,4 +25,6 @@ public interface UserRepository extends JpaRepository<OrkUser, Long>{
     List<OrkUser> getAllByCreatedBy(Long id);
 
     OrkUser getOrkUserByRole_NameAndCreatedBy(RoleType roleName, Long recruiterId);
+
+    List<OrkUser> findAllByCreatedByOrId(Long createdBy, Long id);
 }

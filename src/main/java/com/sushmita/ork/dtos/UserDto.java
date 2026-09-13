@@ -21,6 +21,9 @@ public class UserDto {
 
     private String username;
 
+    //this is for editing user
+    private String oldUsername;
+
     private String emailAddress;
 
     private String contactNumber;
