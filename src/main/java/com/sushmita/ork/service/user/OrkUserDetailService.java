@@ -79,13 +79,26 @@ public class OrkUserDetailService implements UserDetailsService {
         userRepository.save(orkUser);
     }
 
+    public void editUser(UserDto userDto) {
+        OrkUser orkUser = userRepository.findUserByUsername(userDto.getOldUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        orkUser.setUsername(userDto.getUsername());
+        orkUser.setEmail(userDto.getEmailAddress());
+        orkUser.setContactNumber(userDto.getContactNumber());
+
+        userRepository.save(orkUser);
+    }
+
     public List<UserDto> getAllUser() throws ServiceNotFoundException {
         RoleType currentRoleType = authService.getCurrentRoleType();
         List<OrkUser> userList;
-        if(currentRoleType == RoleType.ADMIN) {
-           userList = userRepository.findAll().stream()
-                   .filter(user -> user.getRole().getName() == RoleType.HR || user.getRole().getName() == RoleType.DIRECTOR)
-                   .toList(); //not all user because of privacy of other user
+        if (currentRoleType == RoleType.ADMIN) {
+            userList = userRepository.findAll().stream()
+                    .filter(user -> user.getRole().getName() == RoleType.RECRUITER)
+                    .toList(); //not all user because of privacy of other user
+        } else if (currentRoleType == RoleType.DIRECTOR) {
+            userList = getUsersFromSameCompany();
         } else {
             userList = userRepository.getAllByCreatedBy(authService.getCurrentUserId().get());
         }
@@ -103,5 +116,19 @@ public class OrkUserDetailService implements UserDetailsService {
 
     public OrkUser getSpecificUserBySpecificRole(RoleType roleType, Long recruiterId) {
         return userRepository.getOrkUserByRole_NameAndCreatedBy(roleType, recruiterId);
+    }
+
+    private List<OrkUser> getUsersFromSameCompany() {
+        Long recruiterId = authService.getCurrentUser()
+                .orElseThrow(() -> new RuntimeException("Current user not found")).getCreatedBy();
+
+        return userRepository.findAllByCreatedByOrId(
+                recruiterId, recruiterId
+        );
+    }
+
+    public UserDto getUserByUsername(String username) {
+        OrkUser orkUser =  userRepository.findUserByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        return UserMapper.INSTANCE.mapEntityToDto(orkUser);
     }
 }

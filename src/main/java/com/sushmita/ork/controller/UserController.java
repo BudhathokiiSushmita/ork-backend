@@ -94,4 +94,29 @@ public class UserController {
             return CustomResponse.getErrorResponse(e.getMessage(), "", HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/get-user-by-username/{username}")
+    public ResponseEntity<?> getUserByUsername(@PathVariable String username) {
+        try{
+            UserDto orkUser = orkUserDetailService.getUserByUsername(username);
+            return CustomResponse.getSuccessResponse("Successfully fetched", orkUser);
+        } catch (Exception e) {
+            return CustomResponse.getErrorResponse(e.getMessage(), "", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/edit")
+    public ResponseEntity<?> editUser(@RequestBody UserDto userDto) {
+        try {
+            orkUserDetailService.editUser(userDto);
+            return CustomResponse.getSuccessResponse("Successfully updated", null);
+        } catch (Exception e) {
+//            e.printStackTrace(); // IMPORTANT
+            return CustomResponse.getErrorResponse(
+                    e.getMessage(),
+                    "",
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
 }
