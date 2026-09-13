@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.management.ServiceNotFoundException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Sushmita Budhathoki on 2024-10-22
@@ -56,8 +57,13 @@ public class CompanyService {
         return companyRepository.save(company);
     }
 
-    public List<CompanyDto> getAllCompany() {
+    public List<CompanyDto> getAllCompany() throws ServiceNotFoundException {
         List<Company> companyList = companyRepository.findAll();
+        if (!authService.getCurrentRoleType().equals(RoleType.ADMIN)) {
+            companyList = companyList.stream()
+                    .filter(f -> Objects.equals(f.getCreatedBy(), authService.getCurrentUserId().get()))
+                    .toList();
+        }
         return companyList.stream().map(f ->
                 new CompanyDto(
                         f.getId(),
