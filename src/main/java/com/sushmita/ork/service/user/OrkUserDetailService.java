@@ -1,6 +1,7 @@
 package com.sushmita.ork.service.user;
 
 import com.sushmita.ork.base.AuthService;
+import com.sushmita.ork.dtos.PasswordChangeDto;
 import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.dtos.UserDto;
 import com.sushmita.ork.entity.OrkUser;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.management.ServiceNotFoundException;
@@ -32,11 +34,13 @@ public class OrkUserDetailService implements UserDetailsService {
     private RoleService roleService;
 
     private AuthService authService;
+    private PasswordEncoder passwordEncoder;
 
-    public OrkUserDetailService(UserRepository userRepository, RoleService roleService, AuthService authService) {
+    public OrkUserDetailService(UserRepository userRepository, RoleService roleService, AuthService authService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.authService = authService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -130,5 +134,22 @@ public class OrkUserDetailService implements UserDetailsService {
     public UserDto getUserByUsername(String username) {
         OrkUser orkUser =  userRepository.findUserByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
         return UserMapper.INSTANCE.mapEntityToDto(orkUser);
+    }
+
+   public void changePassword(PasswordChangeDto passwordChangeDto) {
+
+        OrkUser orkUser = userRepository
+                .findUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Verify current password
+        if (!passwordEncoder.matches( passwordChangeDto.getCurrentPassword(), orkUser.getPassword())) {
+           throw new RuntimeException("Current password is incorrect");
+        }
+
+        // Set new password
+        orkUser.setPassword(passwordEncoder.encode(passwordChangeDto.getNewPassword()));
+
+        userRepository.save(orkUser);
     }
 }
