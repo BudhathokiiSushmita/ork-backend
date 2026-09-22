@@ -2,6 +2,7 @@ package com.sushmita.ork.controller;
 
 import com.sushmita.ork.base.CustomResponse;
 import com.sushmita.ork.dtos.AuthResponseDto;
+import com.sushmita.ork.dtos.PasswordChangeDto;
 import com.sushmita.ork.dtos.RegisterDto;
 import com.sushmita.ork.dtos.UserDto;
 import com.sushmita.ork.dtos.UserRequestDto;
@@ -119,4 +120,21 @@ public class UserController {
             );
         }
     }
+
+
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody PasswordChangeDto passwordChangeDto) {
+         try {
+            orkUserDetailService.changePassword(passwordChangeDto);
+            return CustomResponse.getSuccessResponse("Successfully updated", null);
+        } catch (Exception e) {
+//            e.printStackTrace(); // IMPORTANT
+            return CustomResponse.getErrorResponse(
+                    e.getMessage(),
+                    "",
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+    
 }
